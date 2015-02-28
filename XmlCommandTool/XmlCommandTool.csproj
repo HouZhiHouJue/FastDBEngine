@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.377</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3D460110-66F4-44FE-9AB8-5F40E58F3D2C}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <AssemblyName>XmlCommandTool</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>XmlCommandTool</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="ucParameterStyleFix.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucParameterStyleFix.Designer.cs">
+      <DependentUpon>ucParameterStyleFix.cs</DependentUpon>
+    </Compile>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="ICSharpCode.TextEditor">
+      <HintPath>..\ClownFishDEMO.cab\Tools\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="DictContainer.cs" />
+    <Compile Include="EditCommandDialogFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditCommandDialogFix.Designer.cs">
+      <DependentUpon>EditCommandDialogFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileChangedDialogFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileChangedDialogFix.Designer.cs">
+      <DependentUpon>FileChangedDialogFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputNameDialogFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputNameDialogFix.Designer.cs">
+      <DependentUpon>InputNameDialogFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpenDirectoryDialogFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenDirectoryDialogFix.Designer.cs">
+      <DependentUpon>OpenDirectoryDialogFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ParameterDialogFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ParameterDialogFix.Designer.cs">
+      <DependentUpon>ParameterDialogFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="FastDBEngineGenerator\Field.cs" />
+    <Compile Include="FastDBEngineGenerator\CsClassMemberStyle.cs" />
+    <Compile Include="FastDBEngineGenerator\CsClassStyle.cs" />
+    <Compile Include="Properties\Resources.cs" />
+    <Compile Include="DBParametersManager.cs" />
+    <Compile Include="ShowCallCodeDialogFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowCallCodeDialogFix.Designer.cs">
+      <DependentUpon>ShowCallCodeDialogFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyntaxHighlighterControlFix.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyntaxHighlighterControlFix.Designer.cs">
+      <DependentUpon>SyntaxHighlighterControlFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistryHelper.cs" />
+    <Compile Include="TypeConverter.cs" />
+    <Compile Include="TreeNodeExtend.cs" />
+    <Compile Include="GeneratorClassHelper.cs" />
+    <Compile Include="Programe.cs" />
+    <Compile Include="TreeNodeCollectionExtend.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="XmlCommand\Customer.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="XmlCommand\Order.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="XmlCommand\Product.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="XmlCommand\Product_Access.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="XmlCommand\Product_MySql.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="XmlCommand\Product_SQLite.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="XmlCommand\Website.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FastDBEngine\FastDBEngine.csproj">
+      <Project>{e8829103-154d-4a5e-9869-83d00f099cca}</Project>
+      <Name>FastDBEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="InputNameDialogFix.resx">
+      <DependentUpon>InputNameDialogFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenDirectoryDialogFix.resx">
+      <DependentUpon>OpenDirectoryDialogFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucParameterStyleFix.resx">
+      <DependentUpon>ucParameterStyleFix.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

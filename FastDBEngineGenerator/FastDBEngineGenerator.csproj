@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.377</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CAB13B6D-5F36-4157-B120-C5E91A1ECB43}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <AssemblyName>FastDBEngineGenerator</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>FastDBEngineGenerator</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="MainFormFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainFormFix.Designer.cs">
+      <DependentUpon>MainFormFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucParameterStyleFix.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucParameterStyleFix.Designer.cs">
+      <DependentUpon>ucParameterStyleFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Util.cs" />
+    <Reference Include="ICSharpCode.TextEditor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c541b9089c05be97, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ClownFishDEMO.cab\Tools\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\lib\x64\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="DictContainer.cs" />
+    <Compile Include="InputNameDialogFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputNameDialogFix.Designer.cs">
+      <DependentUpon>InputNameDialogFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QueryDialogFix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QueryDialogFix.Designer.cs">
+      <DependentUpon>QueryDialogFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SyntaxHighlighterControlFix.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SyntaxHighlighterControlFix.Designer.cs">
+      <DependentUpon>SyntaxHighlighterControlFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UcCsClassStyleFix.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UcCsClassStyleFix.Designer.cs">
+      <DependentUpon>UcCsClassStyleFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FastDBEngineGenerator\Field.cs" />
+    <Compile Include="FastDBEngineGenerator\CsClassMemberStyle.cs" />
+    <Compile Include="FastDBEngineGenerator\CsClassStyle.cs" />
+    <Compile Include="FastDBEngineGenerator\Properties\Settings.cs" />
+    <Compile Include="FastDBEngineGenerator\Properties\Resources.cs" />
+    <Compile Include="DBParametersManager.cs" />
+    <Compile Include="TypeConverter.cs" />
+    <Compile Include="Programe.cs" />
+    <Compile Include="GeneratorDbHelper.cs" />
+    <Compile Include="GeneratorClassHelper.cs" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FastDBEngine\FastDBEngine.csproj">
+      <Project>{e8829103-154d-4a5e-9869-83d00f099cca}</Project>
+      <Name>FastDBEngine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="InputNameDialogFix.resx">
+      <DependentUpon>InputNameDialogFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QueryDialogFix.resx">
+      <DependentUpon>QueryDialogFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UcCsClassStyleFix.resx">
+      <DependentUpon>UcCsClassStyleFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucParameterStyleFix.resx">
+      <DependentUpon>ucParameterStyleFix.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
