@@ -144,14 +144,14 @@
                 List<Type> list = new List<Type>(typeArray.Length);
                 foreach (Type type in typeArray)
                 {
-                    if (type.GetMeberOperationHelperContainer(false).method_13(EnumState.const_0, EnumState.const_1))
+                    if (type.GetMeberOperationHelperContainer(false).IsOrigin(EnumState.const_0, EnumState.const_1))
                     {
                         list.Add(type);
                     }
                 }
                 if (list.Count != 0)
                 {
-                    List<GenerateCodeInfo> list2 = GenerateCodeHelper.smethod_19(list);
+                    List<GenerateCodeInfo> list2 = GenerateCodeHelper.GetGenerateCodeInfoList(list);
                     Assembly assembly = CompileAssemblyHelper.CompileAssembly(list2);
                     using (List<Type>.Enumerator enumerator = list.GetEnumerator())
                     {

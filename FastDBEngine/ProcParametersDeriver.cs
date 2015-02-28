@@ -76,17 +76,17 @@ internal static class ProcParametersDeriver
         return GetCachedParameters(dbContext.Connection, dbContext.CurrentCommand.CommandText);
     }
 
-    public static DbParameter[] GetCachedParameters(DbConnection dbConnection, string string_0)
+    public static DbParameter[] GetCachedParameters(DbConnection dbConnection, string name)
     {
         if (dbConnection == null)
         {
             throw new ArgumentNullException("dbConn");
         }
-        if (string.IsNullOrEmpty(string_0))
+        if (string.IsNullOrEmpty(name))
         {
             throw new ArgumentNullException("spName");
         }
-        string str = string_0 + "###" + dbConnection.ConnectionString + "###" + dbConnection.GetType().ToString();
+        string str = name + "###" + dbConnection.ConnectionString + "###" + dbConnection.GetType().ToString();
         DbParameter[] parameterArray = hashtable[str] as DbParameter[];
         if (parameterArray == null)
         {
@@ -95,7 +95,7 @@ internal static class ProcParametersDeriver
                 parameterArray = hashtable[str] as DbParameter[];
                 if (parameterArray == null)
                 {
-                    parameterArray = DeriveParameters(dbConnection, string_0);
+                    parameterArray = DeriveParameters(dbConnection, name);
                     hashtable[str] = parameterArray;
                 }
             }

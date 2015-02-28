@@ -24,7 +24,7 @@ internal class StaticPropertyGetDelegate<T> : IPropertyGet
         return this.func();
     }
 
-    public T method_0()
+    public T Getfunc()
     {
         return this.func();
     }
