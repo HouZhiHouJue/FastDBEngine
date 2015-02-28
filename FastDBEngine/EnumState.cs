@@ -1,6 +1,6 @@
 ﻿using System;
 
-internal enum Enum0
+internal enum EnumState
 {
     const_0,
     const_1,

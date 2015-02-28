@@ -67,12 +67,12 @@ internal sealed class MeberOperationHelperContainer
         return false;
     }
 
-    public Enum0 GetOriginValue()
+    public EnumState GetOriginValue()
     {
-        return (Enum0) this.OriginValue;
+        return (EnumState) this.OriginValue;
     }
 
-    public bool method_13(Enum0 compared, Enum0 value)
+    public bool method_13(EnumState compared, EnumState value)
     {
         return (Interlocked.CompareExchange(ref this.OriginValue, (int) value, (int) compared) == (int)compared);
     }
@@ -123,7 +123,7 @@ internal sealed class MeberOperationHelperContainer
             this.SetModelDelegates(generateModelDelegate);
             this.SetGetPropertyValueByNameDelegate(getPropertyValueByNameDelegate);
             this.SetPropertyValueByNameDelegate(setPropertyValueByNameDelegate);
-            this.method_13(Enum0.const_1, Enum0.const_2);
+            this.method_13(EnumState.const_1, EnumState.const_2);
         }
     }
 

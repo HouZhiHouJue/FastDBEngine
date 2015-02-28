@@ -34,7 +34,7 @@ internal static class ClassObjRepository
                 meberOperationHelperContainer.InitAll();
             }
         }
-        if ((bool_0 && (BuildManager.int1 == 1)) && (meberOperationHelperContainer.GetOriginValue() == Enum0.const_0))
+        if ((bool_0 && (BuildManager.int1 == 1)) && (meberOperationHelperContainer.GetOriginValue() == EnumState.const_0))
         {
             BuildManager.EnqueueWaitForCompiledType(type);
         }

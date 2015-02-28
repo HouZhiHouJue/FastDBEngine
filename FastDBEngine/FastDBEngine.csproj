@@ -81,7 +81,7 @@
     <Compile Include="FastDBEngine\CPQueryExtensions.cs" />
     <Compile Include="FastDBEngine\PagingInfo.cs" />
     <Compile Include="FastDBEngine\DbContextDefaultSetting.cs" />
-    <Compile Include="Enum0.cs" />
+    <Compile Include="EnumState.cs" />
     <Compile Include="MeberOperationHelperContainer.cs" />
     <Compile Include="ProcParametersDeriver.cs" />
     <Compile Include="TypeInfo.cs" />

@@ -144,7 +144,7 @@
                 List<Type> list = new List<Type>(typeArray.Length);
                 foreach (Type type in typeArray)
                 {
-                    if (type.GetMeberOperationHelperContainer(false).method_13(Enum0.const_0, Enum0.const_1))
+                    if (type.GetMeberOperationHelperContainer(false).method_13(EnumState.const_0, EnumState.const_1))
                     {
                         list.Add(type);
                     }
