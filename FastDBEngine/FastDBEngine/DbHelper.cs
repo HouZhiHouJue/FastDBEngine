@@ -474,7 +474,7 @@
             string[] strArray = new string[fieldCount];
             for (int i = 0; i < fieldCount; i++)
             {
-                strArray[i] = reader.GetName(i);
+                strArray[i] = reader.GetName(i).FilterStr();
             }
             return strArray;
         }
@@ -484,7 +484,7 @@
             string[] strArray = new string[table.Columns.Count];
             for (int i = 0; i < table.Columns.Count; i++)
             {
-                strArray[i] = table.Columns[i].ColumnName;
+                strArray[i] = table.Columns[i].ColumnName.FilterStr();
             }
             return strArray;
         }
@@ -605,28 +605,29 @@
                     else
                     {
                         inputParams.GetType().ValidateType();
-                        MeberOperationHelperContainer class2 = inputParams.GetType().GetMeberOperationHelperContainer(true);
-                        OutParametersInfo class3 = dbContext.AutoRetrieveOutputValues ? new OutParametersInfo() : null;
+                        MeberOperationHelperContainer meberOperationHelperContainer = inputParams.GetType().GetMeberOperationHelperContainer(true);
+                        OutParametersInfo outParametersInfo = dbContext.AutoRetrieveOutputValues ? new OutParametersInfo() : null;
                         foreach (DbParameter parameter2 in dbContext.CurrentCommand.Parameters)
                         {
                             if ((parameter2.Direction == ParameterDirection.Input) || (parameter2.Direction == ParameterDirection.InputOutput))
                             {
                                 str = parameter2.ParameterName.Substring(num2 + 1);
                                 MeberOperationHelper class4 = null;
-                                if (class2.GetMeberOperationHelper(str, out class4))
+                                if (meberOperationHelperContainer.GetMeberOperationHelper(str, out class4))
                                 {
                                     parameter2.Value = class4.GetPropertyValue(inputParams) ?? DBNull.Value;
                                 }
                             }
                             if (dbContext.AutoRetrieveOutputValues && ((parameter2.Direction == ParameterDirection.Output) || (parameter2.Direction == ParameterDirection.InputOutput)))
                             {
-                                class3.AddOutParameter(parameter2.ParameterName.Substring(num2 + 1));
+                                if (parameter2.DbType != DbType.Object)
+                                    outParametersInfo.AddOutParameter(parameter2.ParameterName.Substring(num2 + 1));
                             }
                         }
-                        if (((class3 != null) && (class3.GetOutParameterList() != null)) && (class3.GetOutParameterList().Count > 0))
+                        if (((outParametersInfo != null) && (outParametersInfo.GetOutParameterList() != null)) && (outParametersInfo.GetOutParameterList().Count > 0))
                         {
-                            class3.objClass = inputParams;
-                            dbContext.OutParametersInfo = class3;
+                            outParametersInfo.objClass = inputParams;
+                            dbContext.OutParametersInfo = outParametersInfo;
                         }
                         else
                         {
@@ -642,34 +643,34 @@
             return new DbContext(false);
         }
 
-        internal static void smethod_1(DbContext dbContext_0)
+        internal static void OnAfterExcute(DbContext dbContext)
         {
-            if ((dbContext_0 != null) && (dbContext_0.OutParametersInfo != null))
+            if ((dbContext != null) && (dbContext.OutParametersInfo != null))
             {
-                OutParametersInfo class25 = dbContext_0.OutParametersInfo;
-                dbContext_0.OutParametersInfo = null;
-                if (class25.objClass == null)
+                OutParametersInfo outParametersInfo = dbContext.OutParametersInfo;
+                dbContext.OutParametersInfo = null;
+                if (outParametersInfo.objClass == null)
                 {
                     throw new InvalidOperationException("Internal Error, SpOutParamDescription.DataItem is null.");
                 }
-                MeberOperationHelperContainer class3 = class25.objClass.GetType().GetMeberOperationHelperContainer(true);
-                foreach (string str in class25.GetOutParameterList())
+                MeberOperationHelperContainer meberOperationHelperContainer = outParametersInfo.objClass.GetType().GetMeberOperationHelperContainer(true);
+                foreach (string str in outParametersInfo.GetOutParameterList())
                 {
-                    DbParameter commandParameter = dbContext_0.GetCommandParameter(str, false);
+                    DbParameter commandParameter = dbContext.GetCommandParameter(str, false);
                     if (commandParameter == null)
                     {
                         throw new InvalidOperationException(string.Format("设置存储过程输出参数值失败，因为命令参数 [{0}] 不存在。", str));
                     }
-                    MeberOperationHelper class4 = null;
-                    if (!class3.GetMeberOperationHelper(str, out class4))
+                    MeberOperationHelper meberOperationHelper = null;
+                    if (!meberOperationHelperContainer.GetMeberOperationHelper(str, out meberOperationHelper))
                     {
                         throw new ArgumentOutOfRangeException(string.Format("设置存储过程输出参数值失败，因为实体成员 [{0}] 不存在。", str));
                     }
-                    if (!class4.GetMemberOperationBase().CanWrite())
+                    if (!meberOperationHelper.GetMemberOperationBase().CanWrite())
                     {
                         throw new InvalidOperationException(string.Format("设置存储过程输出参数值失败，因为实体成员 [{0}] 不可写。", str));
                     }
-                    if (!class4.SetPropertyValue(class25.objClass, commandParameter.Value))
+                    if (!meberOperationHelper.SetPropertyValue(outParametersInfo.objClass, commandParameter.Value))
                     {
                         throw new InvalidOperationException(string.Format("设置存储过程输出参数值失败，因为写实体成员 [{0}] 失败。", str));
                     }

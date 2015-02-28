@@ -9,7 +9,7 @@ internal static class Programe
     {
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
-        GeneratorDbHelper.RegisterSqlServer();
+       // GeneratorDbHelper.RegisterSqlServer();
         Application.Run(new MainFormFix());
     }
 }

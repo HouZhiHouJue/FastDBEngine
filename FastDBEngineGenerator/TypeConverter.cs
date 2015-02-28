@@ -6,11 +6,6 @@ using System.Runtime.CompilerServices;
 
 public static class TypeConverter
 {
-    public static string FilterStr(this string originStr)
-    {
-        return  originStr.Replace(" ", "").Replace("[", "").Replace("]", "").Replace("'", "").Replace("\"", "").Replace("_", "");
-    }
-
     public static string GetShortTypeName(string typeStr)
     {
         string str;

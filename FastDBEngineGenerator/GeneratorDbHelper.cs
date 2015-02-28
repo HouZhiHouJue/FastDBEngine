@@ -1,6 +1,6 @@
 ﻿using FastDBEngine;
 using FastDBEngineGenerator;
-using Oracle.DataAccess.Client;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,7 +22,7 @@ public static class GeneratorDbHelper
     [CompilerGenerated]
     private static Func<Field, bool> funcBoolDefaultValue;
 
-    private static readonly string OracletableNameSql = "SELECT tname NAME from tab";//"\r\nselect name from ( SELECT obj.name AS [Name],  \r\n\tCAST( case when obj.is_ms_shipped = 1 then 1     \r\n\t\t\twhen ( select major_id from sys.extended_properties          \r\n\t\t\t\t\twhere major_id = obj.object_id and  minor_id = 0 and class = 1 and name = N'microsoft_database_tools_support')          \r\n\t\t\tis not null then 1  else 0 end  AS bit) AS [IsSystemObject] \r\n\tFROM sys.all_objects AS obj where obj.type in (N'U') ) as tables \r\n\twhere [IsSystemObject] = 0 ORDER BY [Name] ASC";
+    private static readonly string OracletableNameSql = "select table_name from user_tables";//"\r\nselect name from ( SELECT obj.name AS [Name],  \r\n\tCAST( case when obj.is_ms_shipped = 1 then 1     \r\n\t\t\twhen ( select major_id from sys.extended_properties          \r\n\t\t\t\t\twhere major_id = obj.object_id and  minor_id = 0 and class = 1 and name = N'microsoft_database_tools_support')          \r\n\t\t\tis not null then 1  else 0 end  AS bit) AS [IsSystemObject] \r\n\tFROM sys.all_objects AS obj where obj.type in (N'U') ) as tables \r\n\twhere [IsSystemObject] = 0 ORDER BY [Name] ASC";
     private static readonly string AllViewsSql = @"select t.VIEW_NAME AS NAME from user_views t";//"\r\nselect name from ( SELECT obj.name AS [Name],  \r\n\tCAST( case when obj.is_ms_shipped = 1 then 1     \r\n\t\t\twhen ( select major_id from sys.extended_properties          \r\n\t\t\t\t\twhere major_id = obj.object_id and  minor_id = 0 and class = 1 and name = N'microsoft_database_tools_support')          \r\n\t\t\tis not null then 1  else 0 end  AS bit) AS [IsSystemObject] \r\n\tFROM sys.all_objects AS obj where obj.type in (N'V') ) as tables \r\n\twhere [IsSystemObject] = 0 ORDER BY [Name] ASC";
     private static readonly string DetailTableInfoSql = @"SELECT
        COL.COLUMN_NAME AS NAME,
@@ -172,32 +172,32 @@ SELECT T.OBJECT_NAME || '.' || T.PROCEDURE_NAME NAME
 
     public static string GetTableDefinitionText(List<Field> list, string tableName)
     {
-        using (DbContext dbcontext = new DbContext("oracle"))
-        {
-            return DbHelper.ExecuteScalar<string>(string.Format(tableDefinitionSql, Util.GetConnUserName(dbcontext.Connection.ConnectionString)), new { TableName = tableName },dbcontext,CommandKind.SqlTextWithParams);
-        }
+        //using (DbContext dbcontext = new DbContext("oracle"))
+        //{
+        //    return DbHelper.ExecuteScalar<string>(string.Format(tableDefinitionSql, Util.GetConnUserName(dbcontext.Connection.ConnectionString)), new { TableName = tableName },dbcontext,CommandKind.SqlTextWithParams);
+        //}
         //return string.Empty;
-        //if (((list == null) || (list.Count == 0)) || string.IsNullOrEmpty(tableName))
-        //{
-        //    return string.Empty;
-        //}
-        //StringBuilder builder = new StringBuilder();
-        //builder.AppendFormat("create table {0} (\r\n", tableName);
-        //int num = 0;
-        //foreach (Field field in list)
-        //{
-        //    num++;
-        //    if (string.IsNullOrEmpty(field.Formular))
-        //    {
-        //        builder.AppendFormat("\t{0} {1}{2}{3}{4}{5}\r\n", new object[] { field.Name, field.DataType, field.Identity ? "" : "", field.Nullable ? "" : " not null", string.IsNullOrEmpty(field.DefaultValue) ? "" : (" default " + field.DefaultValue), (num < list.Count) ? "," : "" });//string.Format(" identity({0},{1})", field.SeedValue, field.IncrementValue)
-        //    }
-        //    else
-        //    {
-        //        builder.AppendFormat("\t{0} as {1}{2}{3}\r\n", new object[] { field.Name, field.Formular, field.IsPersisted ? " Persisted" : "", (num < list.Count) ? "," : "" });
-        //    }
-        //}
-        //builder.AppendLine(")");
-        //return builder.ToString();
+        if (((list == null) || (list.Count == 0)) || string.IsNullOrEmpty(tableName))
+        {
+            return string.Empty;
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.AppendFormat("create table {0} (\r\n", tableName);
+        int num = 0;
+        foreach (Field field in list)
+        {
+            num++;
+            if (string.IsNullOrEmpty(field.Formular))
+            {
+                builder.AppendFormat("\t{0} {1}{2}{3}{4}{5}\r\n", new object[] { field.Name, field.DataType, field.Identity ? "" : "", field.Nullable ? "" : " not null", string.IsNullOrEmpty(field.DefaultValue) ? "" : (" default " + field.DefaultValue), (num < list.Count) ? "," : "" });//string.Format(" identity({0},{1})", field.SeedValue, field.IncrementValue)
+            }
+            else
+            {
+                builder.AppendFormat("\t{0} as {1}{2}{3}\r\n", new object[] { field.Name, field.Formular, field.IsPersisted ? " Persisted" : "", (num < list.Count) ? "," : "" });
+            }
+        }
+        builder.AppendLine(")");
+        return builder.ToString();
     }
 
     public static DbParameter[] GetParameters(string conn, string dataBase, string commandName)
@@ -207,7 +207,7 @@ SELECT T.OBJECT_NAME || '.' || T.PROCEDURE_NAME NAME
         //    InitialCatalog = string_10
         //};
        // using (SqlConnection connection = new SqlConnection(builder.ToString()))
-        using (Oracle.DataAccess.Client.OracleConnection connection=new OracleConnection(conn))
+        using (OracleConnection connection=new OracleConnection(conn))
         {
             return DBParametersManager.DeriveParameters(connection, commandName);
         }
@@ -365,7 +365,7 @@ SELECT T.OBJECT_NAME || '.' || T.PROCEDURE_NAME NAME
         using (OracleConnection conn = new OracleConnection(connStr))// smethod_1(string_9, string_10))
         {
             conn.Open();
-            using (Oracle.DataAccess.Client.OracleCommand command = new OracleCommand(sql, conn))
+            using (OracleCommand command = new OracleCommand(sql, conn))
             {
                 using (OracleDataReader reader = command.ExecuteReader())
                 {

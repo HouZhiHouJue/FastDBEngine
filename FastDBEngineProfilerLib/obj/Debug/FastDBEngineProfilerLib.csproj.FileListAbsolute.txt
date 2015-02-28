@@ -1,0 +1,13 @@
+E:\OpenSource\ClownFishDEMOV0.1\ClownFishProfilerLib\obj\Debug\FastDBEngineProfilerLib.csprojResolveAssemblyReference.cache
+E:\OpenSource\ClownFishDEMOV0.1\ClownFishProfilerLib\obj\Debug\FastDBEngineProfilerLib.dll
+E:\OpenSource\ClownFishDEMOV0.1\ClownFishProfilerLib\obj\Debug\FastDBEngineProfilerLib.pdb
+E:\OpenSource\ClownFishDEMOV0.1\Debug\FastDBEngineProfilerLib.dll
+E:\OpenSource\ClownFishDEMOV0.1\Debug\FastDBEngineProfilerLib.pdb
+E:\OpenSource\ClownFishDEMOV0.1\FastDBEngineProfilerLib\obj\Debug\FastDBEngineProfilerLib.csprojResolveAssemblyReference.cache
+E:\OpenSource\ClownFishDEMOV0.1\FastDBEngineProfilerLib\obj\Debug\FastDBEngineProfilerLib.dll
+E:\OpenSource\ClownFishDEMOV0.1\FastDBEngineProfilerLib\obj\Debug\FastDBEngineProfilerLib.pdb
+E:\GitMaster\FastDBEngine\Debug\FastDBEngineProfilerLib.dll
+E:\GitMaster\FastDBEngine\Debug\FastDBEngineProfilerLib.pdb
+E:\GitMaster\FastDBEngine\FastDBEngineProfilerLib\obj\Debug\FastDBEngineProfilerLib.csprojResolveAssemblyReference.cache
+E:\GitMaster\FastDBEngine\FastDBEngineProfilerLib\obj\Debug\FastDBEngineProfilerLib.dll
+E:\GitMaster\FastDBEngine\FastDBEngineProfilerLib\obj\Debug\FastDBEngineProfilerLib.pdb

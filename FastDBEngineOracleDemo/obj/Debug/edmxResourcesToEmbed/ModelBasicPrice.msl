@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entity">
+    <EntitySetMapping Name="TBASIC_PRICE">
+      <EntityTypeMapping TypeName="Model.TBASIC_PRICE">
+        <MappingFragment StoreEntitySet="TBASIC_PRICE">
+          <ScalarProperty Name="PKID" ColumnName="PKID" />
+          <ScalarProperty Name="AREA" ColumnName="AREA" />
+          <ScalarProperty Name="CATEGORY_NAME" ColumnName="CATEGORY_NAME" />
+          <ScalarProperty Name="SPECTIFICATION_NAME" ColumnName="SPECTIFICATION_NAME" />
+          <ScalarProperty Name="MATERIAL_NAME" ColumnName="MATERIAL_NAME" />
+          <ScalarProperty Name="FACTORY_NAME" ColumnName="FACTORY_NAME" />
+          <ScalarProperty Name="BASIC_PRICE" ColumnName="BASIC_PRICE" />
+          <ScalarProperty Name="TREND" ColumnName="TREND" />
+          <ScalarProperty Name="PERCENTAGE" ColumnName="PERCENTAGE" />
+          <ScalarProperty Name="DIFFER_PRICE" ColumnName="DIFFER_PRICE" />
+          <ScalarProperty Name="SORT_NO" ColumnName="SORT_NO" />
+          <ScalarProperty Name="ADDED_BY" ColumnName="ADDED_BY" />
+          <ScalarProperty Name="ADDED_TIME" ColumnName="ADDED_TIME" />
+          <ScalarProperty Name="LAST_MODIFIED_BY" ColumnName="LAST_MODIFIED_BY" />
+          <ScalarProperty Name="LAST_MODIFIED_TIME" ColumnName="LAST_MODIFIED_TIME" />
+          <ScalarProperty Name="LAST_MODIFIED_IP" ColumnName="LAST_MODIFIED_IP" />
+          <ScalarProperty Name="VALID" ColumnName="VALID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

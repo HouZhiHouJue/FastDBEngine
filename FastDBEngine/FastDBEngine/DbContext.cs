@@ -310,7 +310,7 @@
                 }
                 if (this.OutParametersInfo != null)
                 {
-                    DbHelper.smethod_1(this);
+                    DbHelper.OnAfterExcute(this);
                 }
             }
         }

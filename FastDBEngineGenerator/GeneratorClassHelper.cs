@@ -7,6 +7,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Linq;
 
 public static class GeneratorClassHelper
 {
@@ -40,7 +41,7 @@ public static class GeneratorClassHelper
         return GeneratePropertyModel(list, originWord, csClassStyle.SupportWCF);
     }
 
-    private static string GenerateFieldModel(List<Field> list, string originword, bool IsContract) 
+    private static string GenerateFieldModel(List<Field> list, string originword, bool IsContract)
     {
         StringBuilder builder = new StringBuilder();
         if (IsContract)
@@ -62,6 +63,7 @@ public static class GeneratorClassHelper
 
     private static string GenerateAutoPropertyModel(List<Field> list, string originWord, bool IsContract)
     {
+        originWord = originWord.Substring(0, 1) + originWord.Substring(1, originWord.Length - 1).ToLower();
         StringBuilder builder = new StringBuilder();
         if (IsContract)
         {
@@ -144,7 +146,12 @@ public static class GeneratorClassHelper
                 }
             }
         }
-        string str2 = (isPaging || flag) ? (spname.FilterStr() + "Parameters") : string.Empty;
+        string str2 = spname.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Aggregate((i, j) =>
+        {
+            return i.Substring(0, 1).ToUpper() + i.Substring(1, i.Length - 1).ToLower()
+                + j.Substring(0, 1).ToUpper() + j.Substring(1, j.Length - 1).ToLower();
+        }).Replace(".", "");
+        str2 = (isPaging || flag) ? (str2.FilterStr() + "Parameters") : string.Empty;
         StringBuilder builder = new StringBuilder();
         if (!string.IsNullOrEmpty(str2))
         {
@@ -153,6 +160,8 @@ public static class GeneratorClassHelper
                 builder.Append("public class ").Append(str2).AppendLine(" : PagingInfo {");
                 foreach (DbParameter parameter in dbParameter)
                 {
+                    if (parameter.DbType == DbType.Object)
+                        continue;
                     if (((string.Compare(parameter.ParameterName.Substring(prefiexIndex), DbContext.STR_TotalRecords, StringComparison.OrdinalIgnoreCase) != 0) && (string.Compare(parameter.ParameterName.Substring(prefiexIndex), DbContext.STR_PageIndex, StringComparison.OrdinalIgnoreCase) != 0)) && (string.Compare(parameter.ParameterName.Substring(prefiexIndex), DbContext.STR_PageSize, StringComparison.OrdinalIgnoreCase) != 0))
                     {
                         builder.AppendFormat("\tpublic {0} {1} {{ get; set; }}\r\n", TypeConverter.ConvertToClrType(parameter.DbType), parameter.ParameterName.Substring(prefiexIndex));
@@ -164,6 +173,8 @@ public static class GeneratorClassHelper
                 builder.Append("public class ").Append(str2).AppendLine(" {");
                 foreach (DbParameter parameter in dbParameter)
                 {
+                    if (parameter.DbType == DbType.Object)
+                        continue;
                     builder.AppendFormat("\tpublic {0} {1} {{ get; set; }}\r\n", TypeConverter.ConvertToClrType(parameter.DbType), parameter.ParameterName.Substring(prefiexIndex));
                 }
             }
@@ -173,6 +184,8 @@ public static class GeneratorClassHelper
         int num2 = 1;
         foreach (DbParameter parameter in dbParameter)
         {
+            if (parameter.DbType == DbType.Object)
+                continue;
             builder.AppendFormat("\t{0} = xxxxxxx{1}{2}\r\n", parameter.ParameterName.Substring(prefiexIndex), (num2++ < dbParameter.Length) ? "," : "", ((parameter.Direction == ParameterDirection.Output) || (parameter.Direction == ParameterDirection.InputOutput)) ? "\t\t// output" : "");
         }
         builder.AppendLine("};");
@@ -183,8 +196,15 @@ public static class GeneratorClassHelper
         }
         else if (((spname.IndexOf("get", StringComparison.OrdinalIgnoreCase) >= 0) || (spname.IndexOf("query", StringComparison.OrdinalIgnoreCase) >= 0)) || (spname.IndexOf("search", StringComparison.OrdinalIgnoreCase) >= 0))
         {
-            builder.AppendFormat("TModel item = DbHelper.GetDataItem<TModel>(\"{0}\", parameters);\r\n", spname);
-            builder.AppendFormat("//List<TModel> list = DbHelper.FillList<TModel>(\"{0}\", parameters);\r\n", spname);
+            if (dbParameter.Count(t => t.DbType == DbType.Object) > 0)
+            {
+                builder.AppendFormat("List<TModel> list = DbHelper.FillList<TModel>(\"{0}\", parameters);\r\n", spname);
+            }
+            else
+            {
+                builder.AppendFormat("TModel item = DbHelper.GetDataItem<TModel>(\"{0}\", parameters);\r\n", spname);
+                builder.AppendFormat("//List<TModel> list = DbHelper.FillList<TModel>(\"{0}\", parameters);\r\n", spname);
+            }
         }
         else
         {

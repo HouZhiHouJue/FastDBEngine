@@ -1,4 +1,5 @@
 ﻿using FastDBEngine;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections;
 using System.Data;
@@ -33,9 +34,9 @@ internal static class ProcParametersDeriver
                 connection.Close();
 
             }
-            else if (command is Oracle.DataAccess.Client.OracleCommand)
+            else if (command is OracleCommand)
             {
-                Oracle.DataAccess.Client.OracleCommandBuilder.DeriveParameters((Oracle.DataAccess.Client.OracleCommand)command);
+              OracleCommandBuilder.DeriveParameters((OracleCommand)command);
                 connection.Close();
             }
             else

@@ -54,10 +54,6 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClownFish, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6d8c6494249e7c4d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="FishWebLib, Version=3.0.0.0, Culture=neutral, PublicKeyToken=04db02423b9ebbb2, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
@@ -79,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeTimer.cs" />
     <Compile Include="OrderInfo.cs" />
     <Compile Include="OptionControl.cs">
       <SubType>UserControl</SubType>
@@ -127,6 +124,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FastDBEngine\FastDBEngine.csproj">
+      <Project>{e8829103-154d-4a5e-9869-83d00f099cca}</Project>
+      <Name>FastDBEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

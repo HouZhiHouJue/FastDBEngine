@@ -1,0 +1,13 @@
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\bin\x86\Debug\ClownFishOracle.exe.config
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\bin\x86\Debug\ClownFishOracle.exe
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\bin\x86\Debug\ClownFishOracle.pdb
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\bin\x86\Debug\ClownFish.dll
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\bin\x86\Debug\ClownFish.pdb
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\obj\x86\Debug\ClownFishOracle.csprojResolveAssemblyReference.cache
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\obj\x86\Debug\ClownFishOracle.Form1.resources
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\obj\x86\Debug\ClownFishOracle.Properties.Resources.resources
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\obj\x86\Debug\ClownFishOracle.csproj.GenerateResource.Cache
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\obj\x86\Debug\ClownFishOracle.exe
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\obj\x86\Debug\ClownFishOracle.pdb
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\bin\x86\Debug\XmlCommand\Website.config
+E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\bin\x86\Debug\Oracle.DataAccess.dll

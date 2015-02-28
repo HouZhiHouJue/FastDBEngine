@@ -7,6 +7,7 @@ using System.Data;
 using PerformanceTestApp.Model;
 using System.Reflection;
 using MyTestAppFramework;
+using FastDBEngine;
 
 namespace PerformanceTestApp
 {
@@ -48,19 +49,19 @@ namespace PerformanceTestApp
 	public class Test_ClownFish_ShareConnection : IPerformanceTest
 	{
 		private UiParameters uiParam;
-		private ClownFish.DbContext db;
+		private DbContext db;
 
 		public Test_ClownFish_ShareConnection(UiParameters param)
 		{
 			this.uiParam = param;
-			this.db = new ClownFish.DbContext(false);
+			this.db = new DbContext(false);
 		}
 
 		public List<OrderInfo> Run()
 		{
 			var parameter = new { TopN = uiParam.PageSize };
-			return ClownFish.DbHelper.FillList<OrderInfo>(
-						TestHelper.QueryText, parameter, db, ClownFish.CommandKind.SqlTextWithParams);
+			return DbHelper.FillList<OrderInfo>(
+						TestHelper.QueryText, parameter, db, CommandKind.SqlTextWithParams);
 		}
 
 		public void Dispose()
@@ -121,7 +122,7 @@ namespace PerformanceTestApp
 
 		public List<OrderInfo> Run()
 		{
-			return ClownFish.DbHelper.FillListFromTable<OrderInfo>(TestHelper.GetOrderInfoTable());
+			return DbHelper.FillListFromTable<OrderInfo>(TestHelper.GetOrderInfoTable());
 		}		
 	}
 

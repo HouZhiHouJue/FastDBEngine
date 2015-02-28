@@ -1,5 +1,4 @@
-﻿using ICSharpCode.TextEditor;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -22,7 +21,7 @@ namespace XmlCommandTool
         private ToolStripMenuItem menuSelectAll;
         private ToolStripMenuItem menuUndo;
         private string language;
-        private TextEditorControl textEditorControl1;
+        private TextBox textEditorControl1;
         private ToolStripSeparator toolStripMenuItem1;
         private ToolStripSeparator toolStripMenuItem2;
         private ToolStripSeparator toolStripMenuItem3;
@@ -50,7 +49,7 @@ namespace XmlCommandTool
         {
             this.components = new Container();
 //            base.AutoScaleMode = AutoScaleMode.Font;
-            this.textEditorControl1 = new TextEditorControl();
+            this.textEditorControl1 = new TextBox();
             this.contextMenuStrip1 = new ContextMenuStrip(this.components);
             this.menuUndo = new ToolStripMenuItem();
             this.menuRedo = new ToolStripMenuItem();
@@ -67,13 +66,14 @@ namespace XmlCommandTool
             this.contextMenuStrip1.SuspendLayout();
             base.SuspendLayout();
 //            this.textEditorControl1.BorderStyle = BorderStyle.Fixed3D;
+            this.textEditorControl1.Multiline = true;
             this.textEditorControl1.ContextMenuStrip = this.contextMenuStrip1;
             this.textEditorControl1.Dock = DockStyle.Fill;
-            this.textEditorControl1.IsReadOnly = false;
+            this.textEditorControl1.ReadOnly = false;
             this.textEditorControl1.Location = new Point(0, 0);
             this.textEditorControl1.Name = "textEditorControl1";
-            this.textEditorControl1.ShowLineNumbers = false;
-            this.textEditorControl1.ShowVRuler = false;
+            //this.textEditorControl1.ShowLineNumbers = false;
+            //this.textEditorControl1.ShowVRuler = false;
             this.textEditorControl1.Size = new Size(0x199, 0xd9);
             this.textEditorControl1.TabIndex = 0;
             this.contextMenuStrip1.Items.AddRange(new ToolStripItem[] { this.menuUndo, this.menuRedo, this.toolStripMenuItem1, this.menuCut, this.menuCopy, this.menuPaste, this.menuDelete, this.toolStripMenuItem2, this.menuSelectAll, this.menuCopyAll, this.toolStripMenuItem3, this.menuFind });

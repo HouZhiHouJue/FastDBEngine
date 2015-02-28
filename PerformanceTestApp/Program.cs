@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Configuration;
+using FastDBEngine;
 
 namespace PerformanceTestApp
 {
@@ -33,11 +34,11 @@ namespace PerformanceTestApp
 			ConnectionStringSettings setting = ConfigurationManager.ConnectionStrings["MyNorthwind"];
 			ConnectionString = setting.ConnectionString;
 
-			// 配置 ClownFish
-			ClownFish.DbContext.RegisterDbConnectionInfo("default", setting.ProviderName, "@", setting.ConnectionString);
+            // 配置 FastDBEngine
+			DbContext.RegisterDbConnectionInfo("default", setting.ProviderName, "@", setting.ConnectionString);
 
-			Type[] types = ClownFish.BuildManager.FindModelTypesFromCurrentApplication(x => x.Namespace == "PerformanceTestApp.Model");
-			ClownFish.BuildManager.CompileModelTypesSync(types, true);
+			Type[] types = BuildManager.FindModelTypesFromCurrentApplication(x => x.Namespace == "PerformanceTestApp.Model");
+			BuildManager.CompileModelTypesSync(types, true);
 
 			// 配置 FishWebLib
 			FishWebLib.FishDbContext.Init(setting.ProviderName, "@", setting.ConnectionString);

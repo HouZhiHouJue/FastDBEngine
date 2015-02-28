@@ -1,0 +1,17 @@
+E:\OpenSource\ClownFishDEMOV0.1\CPQueryConsoleUITester\bin\Debug\CPQueryConsoleUITester.exe.config
+E:\OpenSource\ClownFishDEMOV0.1\CPQueryConsoleUITester\bin\Debug\CPQueryConsoleUITester.exe
+E:\OpenSource\ClownFishDEMOV0.1\CPQueryConsoleUITester\bin\Debug\CPQueryConsoleUITester.pdb
+E:\OpenSource\ClownFishDEMOV0.1\CPQueryConsoleUITester\bin\Debug\FastDBEngine.dll
+E:\OpenSource\ClownFishDEMOV0.1\CPQueryConsoleUITester\bin\Debug\Oracle.DataAccess.dll
+E:\OpenSource\ClownFishDEMOV0.1\CPQueryConsoleUITester\bin\Debug\FastDBEngine.pdb
+E:\OpenSource\ClownFishDEMOV0.1\CPQueryConsoleUITester\obj\Debug\CPQueryConsoleUITester.csprojResolveAssemblyReference.cache
+E:\OpenSource\ClownFishDEMOV0.1\CPQueryConsoleUITester\obj\Debug\CPQueryConsoleUITester.exe
+E:\OpenSource\ClownFishDEMOV0.1\CPQueryConsoleUITester\obj\Debug\CPQueryConsoleUITester.pdb
+E:\GitMaster\FastDBEngine\CPQueryConsoleUITester\bin\Debug\CPQueryConsoleUITester.exe.config
+E:\GitMaster\FastDBEngine\CPQueryConsoleUITester\bin\Debug\CPQueryConsoleUITester.exe
+E:\GitMaster\FastDBEngine\CPQueryConsoleUITester\bin\Debug\CPQueryConsoleUITester.pdb
+E:\GitMaster\FastDBEngine\CPQueryConsoleUITester\bin\Debug\FastDBEngine.dll
+E:\GitMaster\FastDBEngine\CPQueryConsoleUITester\bin\Debug\FastDBEngine.pdb
+E:\GitMaster\FastDBEngine\CPQueryConsoleUITester\obj\Debug\CPQueryConsoleUITester.csprojResolveAssemblyReference.cache
+E:\GitMaster\FastDBEngine\CPQueryConsoleUITester\obj\Debug\CPQueryConsoleUITester.exe
+E:\GitMaster\FastDBEngine\CPQueryConsoleUITester\obj\Debug\CPQueryConsoleUITester.pdb

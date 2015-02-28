@@ -20,6 +20,7 @@ namespace FastDBEngineGenerator
         public MainFormFix()
         {
             InitializeComponent();
+            this.cboConnectionString.Text = System.Configuration.ConfigurationManager.AppSettings["oracle"];
         }
         bool register = false;
         private void btnConnect_Click(object sender, EventArgs e)
@@ -113,7 +114,7 @@ namespace FastDBEngineGenerator
             }
             if (this.cboConnectionString.Items.Count == 0)
             {
-                this.cboConnectionString.Text = @"Data Source=127.0.0.1/orcl;Persist Security Info=True;User ID=fx;Password=fx";
+                this.cboConnectionString.Text = System.Configuration.ConfigurationManager.AppSettings["oracle"];
             }
             else
             {
@@ -521,6 +522,7 @@ namespace FastDBEngineGenerator
             public void GenerateParameter()
             {
                 DbParameter[] parameterArray = GeneratorDbHelper.GetParameters(this.mainForm.conn, this.database, this.commmandName);
+               // parameterArray = parameterArray.Where(t => t.DbType != DbType.Object).ToArray();
                 this.mainForm.SetUpText(GeneratorClassHelper.CallProcMethodGenerator(parameterArray, this.commmandName, 0, this.mainForm.ucParameterStyle1.RadioIsChecked()), "cs");
                 this.mainForm.txtSqlScript.SetText(GeneratorDbHelper.GetCommandText(this.mainForm.conn, this.database, this.commmandName));
             }

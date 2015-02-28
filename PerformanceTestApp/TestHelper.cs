@@ -5,6 +5,7 @@ using System.Text;
 using PerformanceTestApp.Model;
 using System.Data;
 using System.Data.SqlClient;
+using FastDBEngine;
 
 namespace PerformanceTestApp
 {
@@ -111,8 +112,8 @@ left join Customers c on d.CustomerId = c.CustomerId
 			// 由于在运行测试前，会有一次单独的调用，所以并没有线程安全问题。
 
 			if( s_OrderInfoTable == null ) {
-				s_OrderInfoTable = ClownFish.DbHelper.FillDataTable(
-							TestHelper.QueryText, new { TopN = 50 }, ClownFish.CommandKind.SqlTextWithParams);
+				s_OrderInfoTable = DbHelper.FillDataTable(
+							TestHelper.QueryText, new { TopN = 50 }, CommandKind.SqlTextWithParams);
 			}
 
 			return s_OrderInfoTable;

@@ -52,7 +52,7 @@ namespace FastDBEngineGenerator
 
         private void QueryDialog_Shown(object sender, EventArgs e)
         {
-            this.txtSql.SetText("SELECT  t.* from WEBSITE t");
+           // this.txtSql.SetText("SELECT  t.* from WEBSITE t");
         }
     }
 }

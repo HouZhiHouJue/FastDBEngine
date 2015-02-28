@@ -1,4 +1,5 @@
 ﻿using FastDBEngine;
+using Oracle.ManagedDataAccess.Client;
 using System;
 using System.Collections;
 using System.Data;
@@ -31,9 +32,9 @@ internal static class DBParametersManager
             {
                 SqlCommandBuilder.DeriveParameters((SqlCommand)command);
             }
-            else if (command is Oracle.DataAccess.Client.OracleCommand)
+            else if (command is OracleCommand)
             {
-                Oracle.DataAccess.Client.OracleCommandBuilder.DeriveParameters((Oracle.DataAccess.Client.OracleCommand)command);
+               OracleCommandBuilder.DeriveParameters((OracleCommand)command);
             }
             else
                 throw new NotSupportedException();

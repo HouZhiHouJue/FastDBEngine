@@ -1,0 +1,9 @@
+E:\OpenSource\ClownFishGeneratorSourceCode\obj\x86\Debug\ClownFishGenerator.csprojResolveAssemblyReference.cache
+E:\OpenSource\ClownFishGeneratorSourceCode\bin\Debug\ClownFishGenerator.exe.config
+E:\OpenSource\ClownFishGeneratorSourceCode\bin\Debug\ClownFishGenerator.exe
+E:\OpenSource\ClownFishGeneratorSourceCode\bin\Debug\ClownFishGenerator.pdb
+E:\OpenSource\ClownFishGeneratorSourceCode\bin\Debug\ClownFish.dll
+E:\OpenSource\ClownFishGeneratorSourceCode\bin\Debug\ICSharpCode.TextEditor.dll
+E:\OpenSource\ClownFishGeneratorSourceCode\bin\Debug\ClownFish.pdb
+E:\OpenSource\ClownFishGeneratorSourceCode\obj\x86\Debug\ClownFishGenerator.exe
+E:\OpenSource\ClownFishGeneratorSourceCode\obj\x86\Debug\ClownFishGenerator.pdb

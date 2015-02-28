@@ -24,19 +24,19 @@ namespace FastDBEngineGenerator
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            bool hasSomethingSelected = this.textEditorControl1.HasSomethingSelected;
-            bool flag2 = this.IsReadOnly();
-            this.menuUndo.Enabled = !flag2 && this.textEditorControl1.ActiveTextAreaControl.Document.UndoStack.CanUndo;
-            this.menuRedo.Enabled = !flag2 && this.textEditorControl1.ActiveTextAreaControl.Document.UndoStack.CanRedo;
-            this.menuCut.Enabled = !flag2 && hasSomethingSelected;
-            this.menuCopy.Enabled = hasSomethingSelected;
-            this.menuPaste.Enabled = !flag2 && Clipboard.ContainsText();
-            this.menuDelete.Enabled = this.menuCut.Enabled;
+            //bool hasSomethingSelected = false;// this.textEditorControl1.s;
+            //bool flag2 = this.IsReadOnly();
+            //this.menuUndo.Enabled = !flag2 && this.textEditorControl1.ActiveTextAreaControl.Document.UndoStack.CanUndo;
+            //this.menuRedo.Enabled = !flag2 && this.textEditorControl1.ActiveTextAreaControl.Document.UndoStack.CanRedo;
+            //this.menuCut.Enabled = !flag2 && hasSomethingSelected;
+            //this.menuCopy.Enabled = hasSomethingSelected;
+            //this.menuPaste.Enabled = !flag2 && Clipboard.ContainsText();
+            //this.menuDelete.Enabled = this.menuCut.Enabled;
         }
 
         private void menuCopy_Click(object sender, EventArgs e)
         {
-            this.textEditorControl1.ExecuteAction(Keys.Control | Keys.C);
+            Clipboard.SetText(this.textEditorControl1.Text);
         }
 
         private void menuCopyAll_Click(object sender, EventArgs e)
@@ -49,37 +49,39 @@ namespace FastDBEngineGenerator
 
         private void menuCut_Click(object sender, EventArgs e)
         {
-            this.textEditorControl1.ExecuteAction(Keys.Control | Keys.X);
+            Clipboard.SetText(this.textEditorControl1.Text);
+            this.textEditorControl1.Clear();
         }
 
         private void menuDelete_Click(object sender, EventArgs e)
         {
-            this.textEditorControl1.ExecuteAction(Keys.Delete);
+            this.textEditorControl1.Clear();
+            //   this.textEditorControl1.ExecuteAction(Keys.Delete);
         }
 
         private void menuFind_Click(object sender, EventArgs e)
         {
-            this.textEditorControl1.ShowSearchTextDialog();
+            // this.textEditorControl1.ShowSearchTextDialog();
         }
 
         private void menuPaste_Click(object sender, EventArgs e)
         {
-            this.textEditorControl1.ExecuteAction(Keys.Control | Keys.V);
+            //this.textEditorControl1.ExecuteAction(Keys.Control | Keys.V);
         }
 
         private void menuRedo_Click(object sender, EventArgs e)
         {
-            this.textEditorControl1.ExecuteAction(Keys.Control | Keys.Y);
+            //this.textEditorControl1.ExecuteAction(Keys.Control | Keys.Y);
         }
 
         private void menuSelectAll_Click(object sender, EventArgs e)
         {
-            this.textEditorControl1.ExecuteAction(Keys.Control | Keys.A);
-        }
+            // this.textEditorControl1.ExecuteAction(Keys.Control | Keys.A);
+        }//
 
         private void menuUndo_Click(object sender, EventArgs e)
         {
-            this.textEditorControl1.ExecuteAction(Keys.Control | Keys.Z);
+            // this.textEditorControl1.ExecuteAction(Keys.Control | Keys.Z);
         }
 
         public void SetLanguage(string language)
@@ -87,7 +89,7 @@ namespace FastDBEngineGenerator
             if (this.language != language)
             {
                 this.language = language;
-                this.textEditorControl1.SetLanguage(language);
+                //  this.textEditorControl1.SetLanguage(language);
             }
         }
 
@@ -98,7 +100,8 @@ namespace FastDBEngineGenerator
 
         public void SetText(string string_1)
         {
-            this.textEditorControl1.SetText(string_1);
+            this.textEditorControl1.Clear();
+            this.textEditorControl1.Text = string_1;
         }
 
         public string GetText()
@@ -108,17 +111,18 @@ namespace FastDBEngineGenerator
 
         public void SetTextEditorControlText(string text)
         {
-            this.textEditorControl1.SetText(text);
+            this.textEditorControl1.Clear();
+            this.textEditorControl1.Text = text;
         }
 
         public bool IsReadOnly()
         {
-            return this.textEditorControl1.IsReadOnly;
+            return this.textEditorControl1.ReadOnly;
         }
 
         public void SetReadOnly(bool readOnly)
         {
-            this.textEditorControl1.IsReadOnly = readOnly;
+            this.textEditorControl1.ReadOnly = readOnly;
         }
     }
 }

@@ -43,9 +43,9 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Reference Include="Oracle.DataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\OpenSource\ClownFishDEMO.cab\ClownFishOracle\lib\x64\Oracle.DataAccess.dll</HintPath>
+      <HintPath>lib\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
@@ -53,6 +53,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="StringExtend.cs" />
     <Compile Include="TypeContainer.cs" />
     <Compile Include="FastDBEngine\DataConverter.cs" />
     <Compile Include="FastDBEngine\XmlCommandManager.cs" />
@@ -111,5 +112,8 @@
     <Compile Include="CompileAssemblyHelper.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="MeberOperationHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\Oracle.ManagedDataAccess.dll" />
   </ItemGroup>
 </Project>

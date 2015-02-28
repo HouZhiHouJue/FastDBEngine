@@ -12,6 +12,11 @@ namespace CPQueryConsoleUITester
     {
         static void Main(string[] args)
         {
+         
+        }
+
+        static void TestCPQuery()
+        {
             Product p = new Product();
             p.ProductID = 1;
             p.ProductName = "2";
@@ -34,6 +39,11 @@ namespace CPQueryConsoleUITester
 
             if (p.Quantity > 0)
                 query = query + " and Quantity >= " + p.Quantity.ToString();
+        }
+
+        static void TestPerformance()
+        {
+ 
         }
     }
 }
