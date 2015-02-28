@@ -1,6 +1,5 @@
 ﻿using FastDBEngine;
 using FastDBEngineOracleDemo.DTO;
-using FastDBEngineOracleDemo.Model;
 using Model;
 using Oracle.ManagedDataAccess.Client;
 using System;
@@ -121,55 +120,57 @@ namespace FastDBEngineOracleDemo
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            System.Diagnostics.Stopwatch st = new System.Diagnostics.Stopwatch();
-            st.Start();
-            using (Entity DbContext = new Entity())
-            {
-                List<TBASIC_PRICE> data = (from m in DbContext.TBASIC_PRICE select m).ToList();
-            }
-            st.Stop();
-            MessageBox.Show(st.ElapsedMilliseconds.ToString());
-        }
+        #region EF
+        //private void button1_Click_1(object sender, EventArgs e)
+        //{
+        //    System.Diagnostics.Stopwatch st = new System.Diagnostics.Stopwatch();
+        //    st.Start();
+        //    using (Entity DbContext = new Entity())
+        //    {
+        //        List<TBASIC_PRICE> data = (from m in DbContext.TBASIC_PRICE select m).ToList();
+        //    }
+        //    st.Stop();
+        //    MessageBox.Show(st.ElapsedMilliseconds.ToString());
+        //}
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            using (Entity DbContext = new Entity())
-            {
-                TBASIC_PRICE data = (from m in DbContext.TBASIC_PRICE where m.PKID == 10000011 select m).ToList().First();
-                data.SPECTIFICATION_NAME = "20*9T";
-                DbContext.TBASIC_PRICE.Attach(data);
-                DbContext.Entry(data).State = System.Data.Entity.EntityState.Modified;
-                int result = DbContext.SaveChanges();
-            }
-        }
+        //private void button4_Click(object sender, EventArgs e)
+        //{
+        //    using (Entity DbContext = new Entity())
+        //    {
+        //        TBASIC_PRICE data = (from m in DbContext.TBASIC_PRICE where m.PKID == 10000011 select m).ToList().First();
+        //        data.SPECTIFICATION_NAME = "20*9T";
+        //        DbContext.TBASIC_PRICE.Attach(data);
+        //        DbContext.Entry(data).State = System.Data.Entity.EntityState.Modified;
+        //        int result = DbContext.SaveChanges();
+        //    }
+        //}
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            using (Entity DbContext = new Entity())
-            {
-                TBASIC_PRICE data = (from m in DbContext.TBASIC_PRICE where m.PKID == 10000013 select m).ToList().First();
-                DbContext.TBASIC_PRICE.Attach(data);
-                DbContext.Entry(data).State = System.Data.Entity.EntityState.Deleted;
-                int result = DbContext.SaveChanges();
-            }
-        }
+        //private void button5_Click(object sender, EventArgs e)
+        //{
+        //    using (Entity DbContext = new Entity())
+        //    {
+        //        TBASIC_PRICE data = (from m in DbContext.TBASIC_PRICE where m.PKID == 10000013 select m).ToList().First();
+        //        DbContext.TBASIC_PRICE.Attach(data);
+        //        DbContext.Entry(data).State = System.Data.Entity.EntityState.Deleted;
+        //        int result = DbContext.SaveChanges();
+        //    }
+        //}
 
-        private void button6_Click(object sender, EventArgs e)
-        {
+        //private void button6_Click(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            var param1 = new Oracle.ManagedDataAccess.Client.OracleParameter("p_Pkid", Oracle.ManagedDataAccess.Client.OracleDbType.Int32, 10000030, ParameterDirection.Input);
-            using (Entity DbContext = new Entity())
-            {
-                //DbContext.Database.SqlQuery<object>("BEGIN Pkg_Product.Deletetbasic_Price(:p_Pkid); end;", param1);
-                int result = DbContext.Database.ExecuteSqlCommand("BEGIN Pkg_Product.Deletetbasic_Price(:p_Pkid); end;", param1);
-            }
-        }
+        //private void button7_Click(object sender, EventArgs e)
+        //{
+        //    var param1 = new Oracle.ManagedDataAccess.Client.OracleParameter("p_Pkid", Oracle.ManagedDataAccess.Client.OracleDbType.Int32, 10000030, ParameterDirection.Input);
+        //    using (Entity DbContext = new Entity())
+        //    {
+        //        //DbContext.Database.SqlQuery<object>("BEGIN Pkg_Product.Deletetbasic_Price(:p_Pkid); end;", param1);
+        //        int result = DbContext.Database.ExecuteSqlCommand("BEGIN Pkg_Product.Deletetbasic_Price(:p_Pkid); end;", param1);
+        //    }
+        //} 
+        #endregion
 
         private void button8_Click(object sender, EventArgs e)
         {
