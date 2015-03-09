@@ -8,4 +8,3 @@ E:\GitMaster\FastDBEngine\Debug\FastDBEngine.dll
 E:\GitMaster\FastDBEngine\Debug\FastDBEngine.pdb
 E:\GitMaster\FastDBEngine\FastDBEngine\obj\Debug\FastDBEngine.dll
 E:\GitMaster\FastDBEngine\FastDBEngine\obj\Debug\FastDBEngine.pdb
-E:\GitMaster\FastDBEngine\FastDBEngine\obj\Debug\FastDBEngine.csprojResolveAssemblyReference.cache

@@ -11,14 +11,6 @@
     {
         private static Dictionary<Type, int> dictionary = new Dictionary<Type, int>(0x800);
         private static Func<bool> funcCompileCondition = null;
-        [CompilerGenerated]
-        private static Func<Type, Type> func1;
-        [CompilerGenerated]
-        private static Func<Assembly, IEnumerable<Type>> func2;
-        [CompilerGenerated]
-        private static Func<Assembly, Type, TypeContainer<Assembly, Type>> func3;
-        [CompilerGenerated]
-        private static Func<TypeContainer<Assembly, Type>, Type> func4;
         private static int requestCount = 0;
         internal static int int1 = 0;
         private static readonly object objLock = new object();
@@ -64,11 +56,7 @@
 
         public static Type[] FindModelTypes(Func<Type, bool> predicate, params Assembly[] assemblies)
         {
-            TempClassJudgeContainer tempClassJudgeContainer = new TempClassJudgeContainer
-            {
-                func = predicate
-            };
-            if (tempClassJudgeContainer.func == null)
+            if (predicate == null)
             {
                 throw new ArgumentNullException("predicate");
             }
@@ -76,19 +64,14 @@
             {
                 throw new ArgumentNullException("array");
             }
-            if (func2 == null)
-            {
-                func2 = new Func<Assembly, IEnumerable<Type>>(t => { return t.GetExportedTypes(); });
-            }
-            if (func3 == null)
-            {
-                func3 = new Func<Assembly, Type, TypeContainer<Assembly, Type>>((a, t) => { return new TypeContainer<Assembly, Type>(a, t); });
-            }
-            if (func4 == null)
-            {
-                func4 = new Func<TypeContainer<Assembly, Type>, Type>(t => { return t.Ttype; });
-            }
-            return Enumerable.Select(Enumerable.Where(Enumerable.SelectMany(assemblies, func2, func3), new Func<TypeContainer<Assembly, Type>, bool>(tempClassJudgeContainer.IsObjClass)), func4).ToArray<Type>();
+            return Enumerable.Select(Enumerable.Where(Enumerable.SelectMany(assemblies, t => { return t.GetExportedTypes(); },
+                (a, t) => { return new TypeContainer<Assembly, Type>(a, t); }), new Func<TypeContainer<Assembly, Type>, bool>(
+                    typeContainer =>
+                    {
+                        return (((typeContainer.Ttype.IsValueType || typeContainer.Ttype.IsInterface) || (typeContainer.Ttype.IsGenericType || typeContainer.Ttype.IsAbstract)) ? false :
+                            predicate(typeContainer.Ttype));
+                    })),
+                t => { return t.Ttype; }).ToArray<Type>();
         }
 
         public static Type[] FindModelTypesFromCurrentApplication(Func<Type, bool> predicate)
@@ -116,11 +99,7 @@
                 Type[] types = null;
                 lock (objLock)
                 {
-                    if (func1 == null)
-                    {
-                        func1 = new Func<Type, Type>(t => { return t; });
-                    }
-                    types = Enumerable.Select<Type, Type>(dictionary.Keys, func1).ToArray<Type>();
+                    types = Enumerable.Select<Type, Type>(dictionary.Keys, t => { return t; }).ToArray<Type>();
                     dictionary.Clear();
                     requestCount = 0;
                 }
@@ -155,17 +134,10 @@
                     Assembly assembly = CompileAssemblyHelper.CompileAssembly(list2);
                     using (List<Type>.Enumerator enumerator = list.GetEnumerator())
                     {
-                        Func<GenerateCodeInfo, bool> func = null;
-                        TempTypeContainer tempTypeContainer = new TempTypeContainer();
                         while (enumerator.MoveNext())
                         {
-                            tempTypeContainer.type = enumerator.Current;
-                            MeberOperationHelperContainer meberOperationHelperContainer = tempTypeContainer.type.GetMeberOperationHelperContainer(false);
-                            if (func == null)
-                            {
-                                func = new Func<GenerateCodeInfo, bool>(tempTypeContainer.IsSameType);
-                            }
-                            GenerateCodeInfo generateCodeInfo = Enumerable.First<GenerateCodeInfo>(list2, func);
+                            MeberOperationHelperContainer meberOperationHelperContainer = enumerator.Current.GetMeberOperationHelperContainer(false);
+                            GenerateCodeInfo generateCodeInfo = Enumerable.First<GenerateCodeInfo>(list2, t => { return t.GenerateParameters.ModelType == enumerator.Current; });
                             Type type2 = assembly.GetType(GenerateCodeHelper.string_0 + "." + generateCodeInfo.GenerateParameters.ClassName);
                             MethodInfo method = type2.GetMethod(generateCodeInfo.GenerateParameters.GenerateModelMethod);
                             MethodInfo info2 = type2.GetMethod(generateCodeInfo.GenerateParameters.GetModelPropertyValueMethod);
@@ -221,28 +193,6 @@
                 {
                     return dictionary.Count;
                 }
-            }
-        }
-
-        [CompilerGenerated]
-        private sealed class TempTypeContainer
-        {
-            public Type type;
-
-            public bool IsSameType(GenerateCodeInfo generateCodeInfo)
-            {
-                return (generateCodeInfo.GenerateParameters.ModelType == this.type);
-            }
-        }
-
-        [CompilerGenerated]
-        private sealed class TempClassJudgeContainer
-        {
-            public Func<Type, bool> func;
-
-            public bool IsObjClass(TypeContainer<Assembly, Type> typeContainer)
-            {
-                return (((typeContainer.Ttype.IsValueType || typeContainer.Ttype.IsInterface) || (typeContainer.Ttype.IsGenericType || typeContainer.Ttype.IsAbstract)) ? false : this.func(typeContainer.Ttype));
             }
         }
     }

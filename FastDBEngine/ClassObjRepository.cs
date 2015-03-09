@@ -9,7 +9,7 @@ internal static class ClassObjRepository
 {
     private static Hashtable HashMeberOperationHelperContainer = new Hashtable(0x1000);
 
-    public static MeberOperationHelperContainer GetMeberOperationHelperContainer(this Type type, bool bool_0)
+    public static MeberOperationHelperContainer GetMeberOperationHelperContainer(this Type type, bool b)
     {
         if (type == null)
         {
@@ -34,7 +34,7 @@ internal static class ClassObjRepository
                 meberOperationHelperContainer.InitAll();
             }
         }
-        if ((bool_0 && (BuildManager.int1 == 1)) && (meberOperationHelperContainer.GetOriginValue() == EnumState.const_0))
+        if ((b && (BuildManager.int1 == 1)) && (meberOperationHelperContainer.GetOriginValue() == EnumState.const_0))
         {
             BuildManager.EnqueueWaitForCompiledType(type);
         }

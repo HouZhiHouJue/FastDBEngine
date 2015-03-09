@@ -67,43 +67,37 @@
 
         private static Dictionary<string, XmlCommand> LoadXmlConfig(string path, out Exception ex)
         {
-            Action<XmlCommand> action = null;
-            XmlCommandContainer XmlCommandContainer = new XmlCommandContainer();
+            Dictionary<string, XmlCommand> dict = null;
             ex = null;
-            XmlCommandContainer.dict = null;
             try
             {
                 string[] strArray = Directory.GetFiles(path, "*.config", SearchOption.AllDirectories);
                 if (strArray.Length > 0)
                 {
-                    XmlCommandContainer.dict = new Dictionary<string, XmlCommand>(0x800);
+                    dict = new Dictionary<string, XmlCommand>(0x800);
                     foreach (string str in strArray)
                     {
-                        if (action == null)
-                        {
-                            action = new Action<XmlCommand>(XmlCommandContainer.AddxmlCommand);
-                        }
-                        XmlHelper.XmlDeserializeFromFile<List<XmlCommand>>(str, Encoding.UTF8).ForEach(action);
+                        XmlHelper.XmlDeserializeFromFile<List<XmlCommand>>(str, Encoding.UTF8).ForEach(t => { dict.AddElement(t.CommandName, t); });
                     }
                 }
             }
             catch (Exception exception)
             {
                 ex = exception;
-                XmlCommandContainer.dict = null;
+                dict = null;
             }
             if (AssemblyHelper.IsWebApp)
             {
                 CacheDependency dependencies = new CacheDependency(path);
                 HttpRuntime.Cache.Insert(guid, path, dependencies, Cache.NoAbsoluteExpiration, Cache.NoSlidingExpiration, CacheItemPriority.NotRemovable, new CacheItemRemovedCallback(XmlCommandManager.LoadXmlCommand));
             }
-            return XmlCommandContainer.dict;
+            return dict;
         }
 
         private static void LoadXmlCommand(string string_1, object path, CacheItemRemovedReason cacheItemRemovedReason)
         {
             Exception exception = null;
-            string str = (string) path;
+            string str = (string)path;
             for (int i = 0; i < 5; i++)
             {
                 Thread.Sleep(0xbb8);
@@ -124,17 +118,6 @@
             if (exception != null)
             {
                 ex = exception;
-            }
-        }
-
-        [CompilerGenerated]
-        private sealed class XmlCommandContainer
-        {
-            public Dictionary<string, XmlCommand> dict;
-
-            public void AddxmlCommand(XmlCommand xmlCommand)
-            {
-                this.dict.AddElement<string, XmlCommand>(xmlCommand.CommandName, xmlCommand);
             }
         }
     }

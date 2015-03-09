@@ -9,22 +9,15 @@
     {
         public static int FindIndex(this string[] array, string value)
         {
-            TempStrContainer class2 = new TempStrContainer {
-                comparedValue = value
-            };
-            return Array.FindIndex<string>(array, new Predicate<string>(class2.CompareStr));
+            return Array.FindIndex<string>(array, t => { return (string.Compare(t, value, StringComparison.OrdinalIgnoreCase) == 0); });
         }
 
         public static int FindIndex(this List<string> list, string value)
         {
-            TempStrContainer tempStrContainer = new TempStrContainer
-            {
-                comparedValue = value
-            };
-            return list.FindIndex(new Predicate<string>(tempStrContainer.CompareStr));
+            return list.FindIndex(t => { return (string.Compare(t, value, StringComparison.OrdinalIgnoreCase) == 0); });
         }
 
-        public static T GetAttribute<T>(this MemberInfo memberInfo_0) where T: Attribute
+        public static T GetAttribute<T>(this MemberInfo memberInfo_0) where T : Attribute
         {
             T[] customAttributes = memberInfo_0.GetCustomAttributes(typeof(T), false) as T[];
             if (customAttributes.Length == 1)
@@ -34,21 +27,11 @@
             return default(T);
         }
 
-        public static T[] GetAttributes<T>(this MemberInfo memberInfo_0) where T: Attribute
+        public static T[] GetAttributes<T>(this MemberInfo memberInfo_0) where T : Attribute
         {
             return (memberInfo_0.GetCustomAttributes(typeof(T), false) as T[]);
         }
 
-        [CompilerGenerated]
-        private sealed class TempStrContainer
-        {
-            public string comparedValue;
-
-            public bool CompareStr(string orginValue)
-            {
-                return (string.Compare(orginValue, this.comparedValue, StringComparison.OrdinalIgnoreCase) == 0);
-            }
-        }
     }
 }
 

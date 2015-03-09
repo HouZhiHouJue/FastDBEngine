@@ -7,12 +7,9 @@ using System.Threading;
 
 internal sealed class MeberOperationHelperContainer
 {
-    [CompilerGenerated]
-    private GenerateModelDelegate getModelDelegate;
-    [CompilerGenerated]
-    private GetPropertyValueByNameDelegate getPropertyValueByNameDelegate;
-    [CompilerGenerated]
-    private SetPropertyValueByNameDelegate setPropertyValueByNameDelegate;
+    public GenerateModelDelegate GetModelDelegate { get; set; }
+    public GetPropertyValueByNameDelegate GetPropertyValueByNameDelegate;
+    public SetPropertyValueByNameDelegate SetPropertyValueByNameDelegate;
     private Dictionary<string, MeberOperationHelper> dict;
     private int IsInit = 0;
     private int OriginValue;
@@ -22,18 +19,6 @@ internal sealed class MeberOperationHelperContainer
     {
         this.modelType = type;
         this.dict = new Dictionary<string, MeberOperationHelper>(capacity, StringComparer.OrdinalIgnoreCase);
-    }
-
-    [CompilerGenerated]
-    internal GenerateModelDelegate GetModelDelegates()
-    {
-        return this.getModelDelegate;
-    }
-
-    [CompilerGenerated]
-    private void SetModelDelegates(GenerateModelDelegate delegate0_1)
-    {
-        this.getModelDelegate = delegate0_1;
     }
 
     public Type GetModelType()
@@ -69,36 +54,12 @@ internal sealed class MeberOperationHelperContainer
 
     public EnumState GetOriginValue()
     {
-        return (EnumState) this.OriginValue;
+        return (EnumState)this.OriginValue;
     }
 
     public bool IsOrigin(EnumState compared, EnumState value)
     {
-        return (Interlocked.CompareExchange(ref this.OriginValue, (int) value, (int) compared) == (int)compared);
-    }
-
-    [CompilerGenerated]
-    internal GetPropertyValueByNameDelegate GetPropertyValueByNameDelegate()
-    {
-        return this.getPropertyValueByNameDelegate;
-    }
-
-    [CompilerGenerated]
-    private void SetGetPropertyValueByNameDelegate(GetPropertyValueByNameDelegate getPropertyValueByNameDelegate)
-    {
-        this.getPropertyValueByNameDelegate = getPropertyValueByNameDelegate;
-    }
-
-    [CompilerGenerated]
-    internal SetPropertyValueByNameDelegate SetPropertyValueByNameDelegate()
-    {
-        return this.setPropertyValueByNameDelegate;
-    }
-
-    [CompilerGenerated]
-    private void SetPropertyValueByNameDelegate(SetPropertyValueByNameDelegate setPropertyValueByNameDelegate)
-    {
-        this.setPropertyValueByNameDelegate = setPropertyValueByNameDelegate;
+        return (Interlocked.CompareExchange(ref this.OriginValue, (int)value, (int)compared) == (int)compared);
     }
 
     public void InitAll()
@@ -112,7 +73,7 @@ internal sealed class MeberOperationHelperContainer
         }
     }
 
-    public void SetDelegates(GenerateModelDelegate generateModelDelegate, GetPropertyValueByNameDelegate getPropertyValueByNameDelegate, 
+    public void SetDelegates(GenerateModelDelegate generateModelDelegate, GetPropertyValueByNameDelegate getPropertyValueByNameDelegate,
         SetPropertyValueByNameDelegate setPropertyValueByNameDelegate)
     {
         try
@@ -120,9 +81,9 @@ internal sealed class MeberOperationHelperContainer
         }
         finally
         {
-            this.SetModelDelegates(generateModelDelegate);
-            this.SetGetPropertyValueByNameDelegate(getPropertyValueByNameDelegate);
-            this.SetPropertyValueByNameDelegate(setPropertyValueByNameDelegate);
+            this.GetModelDelegate = generateModelDelegate;
+            this.GetPropertyValueByNameDelegate = getPropertyValueByNameDelegate;
+            this.SetPropertyValueByNameDelegate = setPropertyValueByNameDelegate;
             this.IsOrigin(EnumState.const_1, EnumState.const_2);
         }
     }
@@ -134,7 +95,8 @@ internal sealed class MeberOperationHelperContainer
 
     public void SetMeberOperationHelperValue(DbColumnAttribute dbColumnAttribute, MemberOperationBase memberOperationBase)
     {
-        MeberOperationHelper meberOperationHelper = new MeberOperationHelper(dbColumnAttribute, memberOperationBase) {
+        MeberOperationHelper meberOperationHelper = new MeberOperationHelper(dbColumnAttribute, memberOperationBase)
+        {
             MeberOperationHelperContainer = this
         };
         this.GetDict()[memberOperationBase.GetPropertyName()] = meberOperationHelper;

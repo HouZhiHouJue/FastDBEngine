@@ -11,11 +11,6 @@ using System.Runtime.CompilerServices;
 
 internal static class CompileAssemblyHelper
 {
-    [CompilerGenerated]
-    private static Func<GenerateCodeInfo, string> funcClassString;
-    [CompilerGenerated]
-    private static Func<GenerateCodeInfo, Type> func;
-
     private static void GetAllAssembly(Assembly assembly, StringCollection stringCollection)
     {
         string location = assembly.Location;
@@ -31,7 +26,8 @@ internal static class CompileAssemblyHelper
         {
             throw new ArgumentException("list is null or empty.");
         }
-        CompilerParameters options = new CompilerParameters {
+        CompilerParameters options = new CompilerParameters
+        {
             GenerateExecutable = false,
             GenerateInMemory = true
         };
@@ -46,34 +42,16 @@ internal static class CompileAssemblyHelper
         GetAllAssembly(typeof(DataTable).Assembly, options.ReferencedAssemblies);
         GetAllAssembly(typeof(Queryable).Assembly, options.ReferencedAssemblies);
         GetAllAssembly(typeof(DbContext).Assembly, options.ReferencedAssemblies);
-        if (funcClassString == null)
-        {
-            funcClassString = new Func<GenerateCodeInfo, string>(CompileAssemblyHelper.GetClassCodeString);
-        }
-        string[] sources = Enumerable.Select<GenerateCodeInfo, string>(list, funcClassString).ToArray<string>();
-        CompilerResults results = ((CSharpCodeProvider) CodeDomProvider.CreateProvider("CSharp")).CompileAssemblyFromSource(options, sources);
+
+        string[] sources = Enumerable.Select<GenerateCodeInfo, string>(list, t => { return t.ClassCodeString; }).ToArray<string>();
+        CompilerResults results = ((CSharpCodeProvider)CodeDomProvider.CreateProvider("CSharp")).CompileAssemblyFromSource(options, sources);
         if ((results.Errors == null) || !results.Errors.HasErrors)
         {
             return results.CompiledAssembly;
         }
-        if (func == null)
-        {
-            func = new Func<GenerateCodeInfo, Type>(CompileAssemblyHelper.GetGenerateParametersType);
-        }
-        Type[] typeArray = Enumerable.Select<GenerateCodeInfo, Type>(list, func).ToArray<Type>();
+        Type[] typeArray = Enumerable.Select<GenerateCodeInfo, Type>(list, t => { return t.GenerateParameters.ModelType; }).ToArray<Type>();
         throw new CompileException("FastDBEngine's AutoLoader Code Compile Error.", results.Errors, typeArray);
     }
 
-    [CompilerGenerated]
-    private static string GetClassCodeString(GenerateCodeInfo generateCodeInfo)
-    {
-        return generateCodeInfo.ClassCodeString;
-    }
-
-    [CompilerGenerated]
-    private static Type GetGenerateParametersType(GenerateCodeInfo generateCodeInfo)
-    {
-        return generateCodeInfo.GenerateParameters.ModelType;
-    }
 }
 

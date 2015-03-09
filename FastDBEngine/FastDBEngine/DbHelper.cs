@@ -10,7 +10,6 @@
 
     public static class DbHelper
     {
-        [CompilerGenerated]
         private static CommandKind DefaultCommandKind { get; set; }
         private static Func<string, DbContext> func = new Func<string, DbContext>(DbHelper.GetDbContext);
 
@@ -303,7 +302,7 @@
             {
                 return new List<T>();
             }
-            GenerateModelDelegate delegate2 = typeof(T).GetMeberOperationHelperContainer(true).GetModelDelegates();
+            GenerateModelDelegate delegate2 = typeof(T).GetMeberOperationHelperContainer(true).GetModelDelegate;
             if (delegate2 == null)
             {
                 List<T> list2 = new List<T>(table.Rows.Count);

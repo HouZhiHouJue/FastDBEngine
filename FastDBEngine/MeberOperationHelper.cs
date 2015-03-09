@@ -59,7 +59,7 @@ internal sealed class MeberOperationHelper
     {
         if (this.MeberOperationHelperContainer != null)
         {
-            GetPropertyValueByNameDelegate GetPropertyValueByNameDelegate = this.MeberOperationHelperContainer.GetPropertyValueByNameDelegate();
+            GetPropertyValueByNameDelegate GetPropertyValueByNameDelegate = this.MeberOperationHelperContainer.GetPropertyValueByNameDelegate;
             if (GetPropertyValueByNameDelegate != null)
             {
                 return GetPropertyValueByNameDelegate(obj, this.MemberOperationBase.GetPropertyName());
@@ -76,7 +76,7 @@ internal sealed class MeberOperationHelper
     {
         if (this.MeberOperationHelperContainer != null)
         {
-            SetPropertyValueByNameDelegate setPropertyValueByNameDelegate = this.MeberOperationHelperContainer.SetPropertyValueByNameDelegate();
+            SetPropertyValueByNameDelegate setPropertyValueByNameDelegate = this.MeberOperationHelperContainer.SetPropertyValueByNameDelegate;
             if (setPropertyValueByNameDelegate != null)
             {
                 setPropertyValueByNameDelegate(obj, this.MemberOperationBase.GetPropertyName(), propertyValue);

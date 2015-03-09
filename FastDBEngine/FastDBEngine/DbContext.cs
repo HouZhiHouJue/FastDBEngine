@@ -10,12 +10,6 @@
     {
         private bool IsErrored;
         private bool useTransaction;
-        [CompilerGenerated]
-        private bool keepConnectionOnException;
-        [CompilerGenerated]
-        private bool autoRetrieveOutputValues;
-        [CompilerGenerated]
-        private bool ignoreErrorEvent;
         internal static readonly char[] char_0 = new char[] { '@', '?', ':', '_', '#', '$' };
         private DbProviderInfo dbProviderInfo;
         internal OutParametersInfo OutParametersInfo;
@@ -23,15 +17,11 @@
         private DbConnection dbConnection;
         private DbTransaction dbTransaction;
         internal int capacity;
-        [CompilerGenerated]
-        private object tag;
         public static readonly string STR_PageIndex = "PageIndex";
         public static readonly string STR_PageSize = "PageSize";
         public static readonly string STR_TotalRecords = "TotalRecords";
         private static string ConfigName { get; set; }
         private string cmdParamNamePrefix;
-        [CompilerGenerated]
-        private XmlCommand xmlCommand;
 
         public static DbContextEventHandler OnBeforeExecute;
         public static DbContextEventHandler OnAfterExecute;
@@ -188,43 +178,43 @@
 
         public int ExecuteNonQuery()
         {
-            return this.GetModel<int>(new Func<int>(this.executeNonQuery));
+            return this.GetModel<int>(() => { return this.dbCommand.ExecuteNonQuery(); });
         }
 
         public object ExecuteScalar()
         {
-            return this.GetModel<object>(new Func<object>(this.executeScalar));
+            return this.GetModel<object>(() => { return this.dbCommand.ExecuteScalar(); });
         }
 
         public DataSet FillDataSet()
         {
-            return this.GetModel<DataSet>(new Func<DataSet>(this.GetDataset));
+            return this.GetModel<DataSet>(this.GetDataset);
         }
 
         public DataSet FillDataSet(params string[] tableNames)
         {
-            DataSetHelper class2 = new DataSetHelper
+            DataSetHelper dataSetHelper = new DataSetHelper
             {
                 tables = tableNames,
                 dbContext = this
             };
-            return this.GetModel<DataSet>(new Func<DataSet>(class2.GetSpecDataset));
+            return this.GetModel<DataSet>(dataSetHelper.GetSpecDataset);
         }
 
         public DataTable FillDataTable()
         {
-            return this.GetModel<DataTable>(new Func<DataTable>(this.GetTable));
+            return this.GetModel<DataTable>(this.GetTable);
         }
 
         public List<T> FillList<T>() where T : class, new()
         {
             typeof(T).ValidateType();
-            return this.GetModel<List<T>>(new Func<List<T>>(this.GetModelList<T>));
+            return this.GetModel<List<T>>(this.GetModelList<T>);
         }
 
         public List<T> FillScalarList<T>()
         {
-            return this.GetModel<List<T>>(new Func<List<T>>(this.GetList<T>));
+            return this.GetModel<List<T>>(this.GetList<T>);
         }
 
         public DbParameter GetCommandParameter(string parameterName, bool appendPrefix = true)
@@ -254,7 +244,7 @@
         public T GetDataItem<T>() where T : class, new()
         {
             typeof(T).ValidateType();
-            return this.GetModel<T>(new Func<T>(this.GetModel<T>));
+            return this.GetModel<T>(this.GetModel<T>);
         }
 
         internal DbCommand CreateDbCommand(XmlCommand xmlCommand, string str)
@@ -315,19 +305,7 @@
             }
         }
 
-        [CompilerGenerated]
-        private int executeNonQuery()
-        {
-            return this.dbCommand.ExecuteNonQuery();
-        }
 
-        [CompilerGenerated]
-        private object executeScalar()
-        {
-            return this.dbCommand.ExecuteScalar();
-        }
-
-        [CompilerGenerated]
         private List<T> GetList<T>()
         {
             List<T> list = new List<T>(DbContextDefaultSetting.ListResultCapacity);
@@ -342,7 +320,6 @@
             return list;
         }
 
-        [CompilerGenerated]
         private DataTable GetTable()
         {
             using (DbDataReader reader = this.dbCommand.ExecuteReader())
@@ -354,7 +331,6 @@
             }
         }
 
-        [CompilerGenerated]
         private DataSet GetDataset()
         {
             DbDataAdapter adapter = this.dbProviderInfo.dbProviderFactory.CreateDataAdapter();
@@ -364,12 +340,11 @@
             return dataSet;
         }
 
-        [CompilerGenerated]
         private List<T> GetModelList<T>() where T : class, new()
         {
             using (DbDataReader reader = this.dbCommand.ExecuteReader())
             {
-                GenerateModelDelegate generateModelDelegate = typeof(T).GetMeberOperationHelperContainer(true).GetModelDelegates();
+                GenerateModelDelegate generateModelDelegate = typeof(T).GetMeberOperationHelperContainer(true).GetModelDelegate;
                 if (generateModelDelegate == null)
                 {
                     List<T> list = new List<T>(this.capacity);
@@ -387,12 +362,11 @@
             }
         }
 
-        [CompilerGenerated]
         private T GetModel<T>() where T : class, new()
         {
             using (DbDataReader reader = this.dbCommand.ExecuteReader(CommandBehavior.SingleRow))
             {
-                GenerateModelDelegate generateModelDelegate = typeof(T).GetMeberOperationHelperContainer(true).GetModelDelegates();
+                GenerateModelDelegate generateModelDelegate = typeof(T).GetMeberOperationHelperContainer(true).GetModelDelegate;
                 if (generateModelDelegate == null)
                 {
                     T local = default(T);
@@ -577,19 +551,7 @@
         //    return ConfigName;
         //}
 
-        public bool AutoRetrieveOutputValues
-        {
-            [CompilerGenerated]
-            get
-            {
-                return this.autoRetrieveOutputValues;
-            }
-            [CompilerGenerated]
-            set
-            {
-                this.autoRetrieveOutputValues = value;
-            }
-        }
+        public bool AutoRetrieveOutputValues { get; set; }
 
         public DbConnection Connection
         {
@@ -607,47 +569,11 @@
             }
         }
 
-        public XmlCommand CurrentXmlCommand
-        {
-            [CompilerGenerated]
-            get
-            {
-                return this.xmlCommand;
-            }
-            [CompilerGenerated]
-            private set
-            {
-                this.xmlCommand = value;
-            }
-        }
+        public XmlCommand CurrentXmlCommand { get; set; }
 
-        public bool IgnoreErrorEvent
-        {
-            [CompilerGenerated]
-            get
-            {
-                return this.ignoreErrorEvent;
-            }
-            [CompilerGenerated]
-            set
-            {
-                this.ignoreErrorEvent = value;
-            }
-        }
+        public bool IgnoreErrorEvent { get; set; }
 
-        public bool KeepConnectionOnException
-        {
-            [CompilerGenerated]
-            get
-            {
-                return this.keepConnectionOnException;
-            }
-            [CompilerGenerated]
-            set
-            {
-                this.keepConnectionOnException = value;
-            }
-        }
+        public bool KeepConnectionOnException { get; set; }
 
         public string ParamNamePrefix
         {
@@ -657,19 +583,7 @@
             }
         }
 
-        public object Tag
-        {
-            [CompilerGenerated]
-            get
-            {
-                return this.tag;
-            }
-            [CompilerGenerated]
-            set
-            {
-                this.tag = value;
-            }
-        }
+        public object Tag { get; set; }
 
         public DbTransaction Transaction
         {
@@ -679,7 +593,6 @@
             }
         }
 
-        [CompilerGenerated]
         private sealed class DataSetHelper
         {
             public DbContext dbContext;

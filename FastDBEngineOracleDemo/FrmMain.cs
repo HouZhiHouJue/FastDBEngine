@@ -1,5 +1,6 @@
 ﻿using FastDBEngine;
 using FastDBEngineOracleDemo.DTO;
+using FastDBEngineOracleDemo.Util;
 using Model;
 using Oracle.ManagedDataAccess.Client;
 using System;
@@ -23,6 +24,7 @@ namespace FastDBEngineOracleDemo
             InitializeComponent();
             System.Diagnostics.Trace.WriteLine("1");
             Register();
+            
         }
 
         void Register()
@@ -179,6 +181,28 @@ namespace FastDBEngineOracleDemo
                 P_PKID = 10000031
             };
             int result = DbHelper.ExecuteNonQuery("PKG_PRODUCT.DELETETBASIC_PRICE", parameters);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            CodeTimer.Initialize();
+            CodeTimer.Time("1", 10, new Action(
+                () =>
+                {
+                    using (DbContext dbContext = new DbContext("oracle"))
+                    {
+                        List<TbasicPrice> list = FastDBEngine.DbHelper.FillList<TbasicPrice>(
+                          "select * from TBASIC_PRICE t", null, dbContext, FastDBEngine.CommandKind.SqlTextNoParams);
+                        //List<TbasicPrice> list2 = DbHelper.FillList<TbasicPrice>(
+                        //    "select * from TBASIC_PRICE where PKID = :Id",
+                        //     new { Id = 10000068 },
+                        //     dbContext,
+                        //     CommandKind.SqlTextWithParams);
+                        //var query = "select * from TBASIC_PRICE where PKID =".AsCPQuery(true);
+                        //query += 10000068;
+                        //List<TbasicPrice> list7 = DbHelper.FillList<TbasicPrice>(query);
+                    };
+                }));
         }
     }
 
