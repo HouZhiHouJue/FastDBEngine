@@ -16,11 +16,11 @@ namespace FastDBEngineGenerator
             InitializeComponent();
         }
 
-        public QueryDialogFix(string string_2, string string_3)
+        public QueryDialogFix(string connStr, string configName)
         {
             this.InitializeComponent();
-            this.string_0 = string_2;
-            this.string_1 = string_3;
+            this.connStr = connStr;
+            this.configName = configName;
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -30,8 +30,9 @@ namespace FastDBEngineGenerator
                 try
                 {
                     string str = this.txtSql.GetText().Trim();
-                    List<Field> list = GeneratorDbHelper.GetFieldListFromReader(this.string_0, this.string_1, str);
-                    this.txtCsCode.SetText(GeneratorClassHelper.GenerateModel("YourModelClassName", list, this.ucCsClassStyle1.GetCsClassStyle()));
+                    List<Field> list = GeneratorDbHelper.GetFieldListFromReader(this.connStr, this.configName, str);
+                    this.txtCsCode.SetLanguage("C#");
+                    this.txtCsCode.SetText(GeneratorClassHelper.GenerateModel("YourModelClassName", list, this.ucCsClassStyle1.GetCsClassStyle(), Util.GetConnUserName(connStr)));
                 }
                 catch (Exception exception)
                 {
@@ -52,7 +53,7 @@ namespace FastDBEngineGenerator
 
         private void QueryDialog_Shown(object sender, EventArgs e)
         {
-           // this.txtSql.SetText("SELECT  t.* from WEBSITE t");
+            // this.txtSql.SetText("SELECT  t.* from WEBSITE t");
         }
     }
 }

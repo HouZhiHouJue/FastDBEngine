@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 public static class TypeConverter
 {
-    public static string GetShortTypeName(string typeStr)
+    public static string GetShortTypeName(string typeStr, int scale)
     {
         string str;
         int num;
@@ -145,9 +145,12 @@ public static class TypeConverter
                         return "TimeSpan";
 
                     case 0x13:
-                    case 0x1d:
                         return "int";
-
+                    case 0x1d:
+                        if (scale > 0)
+                            return "float";
+                        else
+                            return "int";
                     case 20:
                         return "short";
 

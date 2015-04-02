@@ -6,7 +6,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{CAB13B6D-5F36-4157-B120-C5E91A1ECB43}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <AssemblyName>FastDBEngineGenerator</AssemblyName>
+    <AssemblyName>ECode</AssemblyName>
     <OutputType>WinExe</OutputType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
@@ -54,6 +54,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Compile Include="GerneratorEFHelper.cs" />
     <Compile Include="MainFormFix.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,11 +68,16 @@
       <DependentUpon>ucParameterStyleFix.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
+    <Reference Include="ICSharpCode.TextEditorEx, Version=1.0.0.7, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\ICSharpCode.TextEditorEx.dll</HintPath>
+    </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\FastDBEngine\lib\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System.configuration" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -128,8 +134,14 @@
     <EmbeddedResource Include="InputNameDialogFix.resx">
       <DependentUpon>InputNameDialogFix.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainFormFix.resx">
+      <DependentUpon>MainFormFix.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="QueryDialogFix.resx">
       <DependentUpon>QueryDialogFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SyntaxHighlighterControlFix.resx">
+      <DependentUpon>SyntaxHighlighterControlFix.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UcCsClassStyleFix.resx">
       <DependentUpon>UcCsClassStyleFix.cs</DependentUpon>
@@ -137,5 +149,11 @@
     <EmbeddedResource Include="ucParameterStyleFix.resx">
       <DependentUpon>ucParameterStyleFix.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\ICSharpCode.TextEditorEx.dll" />
   </ItemGroup>
 </Project>

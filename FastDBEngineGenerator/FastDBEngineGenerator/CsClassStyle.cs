@@ -7,6 +7,7 @@
         public CsClassMemberStyle MemberStyle;
         public bool SortByName;
         public bool SupportWCF;
+        public bool SupportEF;
     }
 }
 

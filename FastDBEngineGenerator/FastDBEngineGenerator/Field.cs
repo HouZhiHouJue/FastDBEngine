@@ -26,7 +26,7 @@
 
         public string GetCsDataType()
         {
-            return (TypeConverter.GetShortTypeName(this.DataType) + (this.Nullable ? (TypeConverter.IsKnowedType(this.DataType) ? "?" : "") : ""));
+            return (TypeConverter.GetShortTypeName(this.DataType,this.scale) + (this.Nullable ? (TypeConverter.IsKnowedType(this.DataType) ? "?" : "") : ""));
         }
     }
 }

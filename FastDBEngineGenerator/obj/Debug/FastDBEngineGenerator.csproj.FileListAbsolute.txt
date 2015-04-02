@@ -31,6 +31,7 @@ E:\GitMaster\FastDBEngine\Debug\FastDBEngineGenerator.exe
 E:\GitMaster\FastDBEngine\Debug\FastDBEngineGenerator.pdb
 E:\GitMaster\FastDBEngine\FastDBEngineGenerator\obj\Debug\FastDBEngineGenerator.csprojResolveAssemblyReference.cache
 E:\GitMaster\FastDBEngine\FastDBEngineGenerator\obj\Debug\FastDBEngineGenerator.InputNameDialogFix.resources
+E:\GitMaster\FastDBEngine\FastDBEngineGenerator\obj\Debug\FastDBEngineGenerator.MainFormFix.resources
 E:\GitMaster\FastDBEngine\FastDBEngineGenerator\obj\Debug\FastDBEngineGenerator.QueryDialogFix.resources
 E:\GitMaster\FastDBEngine\FastDBEngineGenerator\obj\Debug\FastDBEngineGenerator.UcCsClassStyleFix.resources
 E:\GitMaster\FastDBEngine\FastDBEngineGenerator\obj\Debug\FastDBEngineGenerator.ucParameterStyleFix.resources

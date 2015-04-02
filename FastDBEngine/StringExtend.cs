@@ -11,5 +11,11 @@ namespace FastDBEngine
        {
            return originStr.Replace(" ", "").Replace("[", "").Replace("]", "").Replace("'", "").Replace("\"", "").Replace("_", "");
        }
+
+       public static string Pad(this string str, int number)
+       {
+           return str.PadLeft(str.Length + number, ' ');
+       }
+
     }
 }

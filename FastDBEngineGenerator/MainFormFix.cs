@@ -17,10 +17,11 @@ namespace FastDBEngineGenerator
 {
     public partial class MainFormFix : Form
     {
+        private static readonly string connText = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "ECode.txt");
         public MainFormFix()
         {
             InitializeComponent();
-            this.cboConnectionString.Text = System.Configuration.ConfigurationManager.AppSettings["oracle"];
+            // this.cboConnectionString.Text = System.Configuration.ConfigurationManager.AppSettings["oracle"];
         }
         bool register = false;
         private void btnConnect_Click(object sender, EventArgs e)
@@ -38,20 +39,6 @@ namespace FastDBEngineGenerator
                 }
                 this.GenerateParameters(new Action(this.LoadTreeNode));
                 this.treeView1.Focus();
-            }
-        }
-
-
-
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                Process.Start("http://www.cnblogs.com/fish-li/archive/2012/07/17/ClownFish.html");
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -88,7 +75,7 @@ namespace FastDBEngineGenerator
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.Text = this.Text + " V" + FileVersionInfo.GetVersionInfo(Application.ExecutablePath).FileVersion;
+            // this.Text = this.Text + " V" + FileVersionInfo.GetVersionInfo(Application.ExecutablePath).FileVersion;
             //base.Icon = Resources._003b;
             //this.imageList_0.Images.Add(Resources.database);
             //this.imageList_0.Images.Add(Resources.table);
@@ -108,13 +95,14 @@ namespace FastDBEngineGenerator
                 {
                     this.cboConnectionString.Items.Add(str);
                 }
+                this.cboConnectionString.Items.Add(System.Configuration.ConfigurationManager.AppSettings["oracle"]);
             }
             catch
             {
             }
             if (this.cboConnectionString.Items.Count == 0)
             {
-                this.cboConnectionString.Text = System.Configuration.ConfigurationManager.AppSettings["oracle"];
+                this.cboConnectionString.SelectedIndex = 0;
             }
             else
             {
@@ -124,22 +112,22 @@ namespace FastDBEngineGenerator
 
         private void menuCopyViewName_Click(object sender, EventArgs e)
         {
-            if (this.treeNode_0 != null)
+            if (this.treeNode != null)
             {
-                Clipboard.SetText(this.treeNode_0.Text);
+                Clipboard.SetText(this.treeNode.Text);
             }
         }
 
         private void menuGetXmlCommandBySP_Click(object sender, EventArgs e)
         {
-            TempParametersToClipBoardContainer class2 = new TempParametersToClipBoardContainer
+            TempParametersToClipBoardContainer tempParametersToClipBoardContainer = new TempParametersToClipBoardContainer
             {
                 mainForm = this
             };
-            if (this.treeNode_0 != null)
+            if (this.treeNode != null)
             {
-                class2.database = this.treeNode_0.Parent.Parent.Text;
-                this.GenerateParameters(new Action(class2.SetClipboardText));
+                tempParametersToClipBoardContainer.database = this.treeNode.Parent.Parent.Text;
+                this.GenerateParameters(new Action(tempParametersToClipBoardContainer.SetClipboardXMLCommand));
             }
         }
 
@@ -148,6 +136,7 @@ namespace FastDBEngineGenerator
             try
             {
                 action();
+
             }
             catch (Exception exception)
             {
@@ -164,7 +153,7 @@ namespace FastDBEngineGenerator
             //}
             //else
             {
-                List<string> list = new List<string> { "Oracle" };// GClass1.smethod_6(str);
+                List<string> list = new List<string> { "Database" };// GClass1.smethod_6(str);
                 this.treeView1.Nodes.Clear();
                 foreach (string str2 in list)
                 {
@@ -178,9 +167,9 @@ namespace FastDBEngineGenerator
                     TreeNode node3 = new TreeNode(views, int_3, int_3);
                     node3.Nodes.Add(new TreeNode("loading...", int_2, int_2));
                     node.Nodes.Add(node3);
-                    TreeNode node4 = new TreeNode(Procedures, int_3, int_3);
-                    node4.Nodes.Add(new TreeNode("loading...", int_2, int_2));
-                    node.Nodes.Add(node4);
+                    //TreeNode node4 = new TreeNode(Procedures, int_3, int_3);
+                    //node4.Nodes.Add(new TreeNode("loading...", int_2, int_2));
+                    //node.Nodes.Add(node4);
                     this.treeView1.Nodes.Add(node);
                 }
                 this.conn = str;
@@ -212,7 +201,7 @@ namespace FastDBEngineGenerator
             {
                 tempParameterContainer.database = this.treeView1.SelectedNode.Parent.Parent.Text;
                 tempParameterContainer.commmandName = this.treeView1.SelectedNode.Text;
-                this.SetUpText(string.Empty, "cs");
+                this.SetUpText(string.Empty, "C#");
                 this.GenerateParameters(new Action(tempParameterContainer.GenerateParameter));
             }
         }
@@ -272,10 +261,15 @@ namespace FastDBEngineGenerator
             }
         }
 
-        private void SetUpText(string string_7, string string_8)
+        private void SetUpText(string text, string language)
         {
-            this.txtCsCode.SetLanguage(string_8);
-            this.txtCsCode.SetText(string_7);
+            this.txtCsCode.SetLanguage(language);
+            this.txtCsCode.SetText(text);
+        }
+        private void SetDownText(string text, string language)
+        {
+            this.txtSqlScript.SetLanguage(language);
+            this.txtSqlScript.SetText(text);
         }
 
         private void GenerateParametersWrapper()
@@ -363,7 +357,7 @@ namespace FastDBEngineGenerator
         {
             if (e.Button == MouseButtons.Right)
             {
-                this.treeNode_0 = e.Node;
+                this.treeNode = e.Node;
                 if (e.Node.ImageIndex == int_5)
                 {
                     this.contextMenuStrip1.Show(this.treeView1, e.Location);
@@ -385,12 +379,12 @@ namespace FastDBEngineGenerator
 
         private void 定位到指定对象ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if ((this.treeNode_0 != null) && (this.treeNode_0.Nodes.Count == 3))
+            if ((this.treeNode != null) && (this.treeNode.Nodes.Count == 3))
             {
                 string str = InputNameDialogFix.GetDialogText();
                 if (!string.IsNullOrEmpty(str))
                 {
-                    foreach (TreeNode node2 in this.treeNode_0.Nodes)
+                    foreach (TreeNode node2 in this.treeNode.Nodes)
                     {
                         TreeViewEventArgs args = new TreeViewEventArgs(node2);
                         this.treeView1_AfterExpand(null, args);
@@ -419,22 +413,22 @@ namespace FastDBEngineGenerator
 
         private void 根据查询生成数据实体类ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.treeNode_0 != null)
+            if (this.treeNode != null)
             {
-                new QueryDialogFix(this.conn, this.treeNode_0.Text) { Owner = this }.Show();
+                new QueryDialogFix(this.conn, this.treeNode.Text) { Owner = this }.Show();
             }
         }
 
         private void 生成增删改命令到剪切板ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TempXmlCommandsToClipBoardContainer class2 = new TempXmlCommandsToClipBoardContainer
+            TempXmlCommandsToClipBoardContainer tempXmlCommandsToClipBoardContainer = new TempXmlCommandsToClipBoardContainer
             {
                 mainForm = this
             };
-            if (this.treeNode_0 != null)
+            if (this.treeNode != null)
             {
-                class2.configName = this.treeNode_0.Parent.Parent.Text;
-                this.GenerateParameters(new Action(class2.SetClipBoardText));
+                tempXmlCommandsToClipBoardContainer.configName = this.treeNode.Parent.Parent.Text;
+                this.GenerateParameters(new Action(tempXmlCommandsToClipBoardContainer.SetClipboardXMLCommand));
             }
         }
 
@@ -462,7 +456,6 @@ namespace FastDBEngineGenerator
             }
         }
 
-        [CompilerGenerated]
         private sealed class TempTextGenerate
         {
             private static Func<Field, string> func;
@@ -481,12 +474,11 @@ namespace FastDBEngineGenerator
                     }
                     list = Enumerable.OrderBy<Field, string>(list, func).ToList<Field>();
                 }
-                this.mainForm.SetUpText(GeneratorClassHelper.GenerateModel(this.tableName.FilterStr(), list, this.mainForm.ucCsClassStyle1.GetCsClassStyle()), "cs");
-                this.mainForm.txtSqlScript.SetText(GeneratorDbHelper.GetTableDefinitionText(list, this.tableName));
+                this.mainForm.SetUpText(GeneratorClassHelper.GenerateModel(this.tableName, list, this.mainForm.ucCsClassStyle1.GetCsClassStyle(), Util.GetConnUserName(mainForm.cboConnectionString.Text)), "C#");
+                this.mainForm.SetDownText(GeneratorDbHelper.GetTableDefinitionText(list, this.tableName), "SQL");
             }
         }
 
-        [CompilerGenerated]
         private sealed class TempMainFormFixContainer
         {
             private static Func<Field, string> func;
@@ -506,8 +498,8 @@ namespace FastDBEngineGenerator
                     }
                     list = Enumerable.OrderBy<Field, string>(list, func).ToList<Field>();
                 }
-                this.mainForm.SetUpText(GeneratorClassHelper.GenerateModel(this.tableName.FilterStr(), list, this.mainForm.ucCsClassStyle1.GetCsClassStyle()), "cs");
-                this.mainForm.txtSqlScript.SetText(GeneratorDbHelper.ExecuteScalarViewDefinition(this.mainForm.conn, this.configName, this.tableName));
+                this.mainForm.SetUpText(GeneratorClassHelper.GenerateModel(this.tableName, list, this.mainForm.ucCsClassStyle1.GetCsClassStyle(), Util.GetConnUserName(mainForm.cboConnectionString.Text)), "C#");
+                this.mainForm.SetDownText(GeneratorDbHelper.ExecuteScalarViewDefinition(this.mainForm.conn, this.configName, this.tableName), "SQL");
             }
 
         }
@@ -522,9 +514,9 @@ namespace FastDBEngineGenerator
             public void GenerateParameter()
             {
                 DbParameter[] parameterArray = GeneratorDbHelper.GetParameters(this.mainForm.conn, this.database, this.commmandName);
-               // parameterArray = parameterArray.Where(t => t.DbType != DbType.Object).ToArray();
-                this.mainForm.SetUpText(GeneratorClassHelper.CallProcMethodGenerator(parameterArray, this.commmandName, 0, this.mainForm.ucParameterStyle1.RadioIsChecked()), "cs");
-                this.mainForm.txtSqlScript.SetText(GeneratorDbHelper.GetCommandText(this.mainForm.conn, this.database, this.commmandName));
+                // parameterArray = parameterArray.Where(t => t.DbType != DbType.Object).ToArray();
+                this.mainForm.SetUpText(GeneratorClassHelper.CallProcMethodGenerator(parameterArray, this.commmandName, 0, this.mainForm.ucParameterStyle1.RadioIsChecked()), "C#");
+                this.mainForm.SetDownText(GeneratorDbHelper.GetCommandText(this.mainForm.conn, this.database, this.commmandName), "SQL");
             }
         }
 
@@ -534,9 +526,11 @@ namespace FastDBEngineGenerator
             public MainFormFix mainForm;
             public string database;
 
-            public void SetClipboardText()
+            public void SetClipboardXMLCommand()
             {
-                Clipboard.SetText(XmlHelper.XmlSerializerObject(GeneratorDbHelper.AddParametersToCommand(this.mainForm.conn, this.database, this.mainForm.treeNode_0.Text)));
+                object command = GeneratorDbHelper.AddParametersToCommand(this.mainForm.conn, this.database, this.mainForm.treeNode.Text);
+                string text = XmlHelper.XmlSerializerObject(command);
+                Clipboard.SetText(text);
             }
         }
 
@@ -546,10 +540,37 @@ namespace FastDBEngineGenerator
             public MainFormFix mainForm;
             public string configName;
 
-            public void SetClipBoardText()
+            public void SetClipboardXMLCommand()
             {
-                Clipboard.SetText(XmlHelper.XmlSerializerObject(GeneratorDbHelper.GetListXmlCommands(this.mainForm.conn, this.configName, this.mainForm.treeNode_0.Text)));
+                List<XmlCommand> list = GeneratorDbHelper.GetListXmlCommands(this.mainForm.conn, this.configName, this.mainForm.treeNode.Text);
+                Clipboard.SetText(XmlHelper.XmlSerializerObject(list));
             }
+
+            public void SetClipboarEFCommand()
+            {
+                GerneratorEFHelper GerneratorEFHelper = new FastDBEngineGenerator.GerneratorEFHelper(this.mainForm.treeNode.Text);
+                string text = GerneratorEFHelper.GetEFCommand();
+                Clipboard.SetText(text);
+            }
+        }
+
+        private void 生成增删改到剪贴板ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 生成增删改到剪贴板ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            TempXmlCommandsToClipBoardContainer tempXmlCommandsToClipBoardContainer = new TempXmlCommandsToClipBoardContainer
+            {
+                mainForm = this
+            };
+            if (this.treeNode != null)
+            {
+                tempXmlCommandsToClipBoardContainer.configName = this.treeNode.Parent.Parent.Text;
+                this.GenerateParameters(new Action(tempXmlCommandsToClipBoardContainer.SetClipboarEFCommand));
+            }
+            MessageBox.Show("生成成功", "信息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

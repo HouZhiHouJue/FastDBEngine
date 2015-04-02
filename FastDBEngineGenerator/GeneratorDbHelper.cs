@@ -18,7 +18,7 @@ public static class GeneratorDbHelper
     [CompilerGenerated]
     private static Func<Field, string> funcGetFieldName = new Func<Field, string>(t => { return t.Name; });
     [CompilerGenerated]
-    private static Func<Field, bool> funcIsTimestamp= new Func<Field, bool>(t => { return (string.Compare(t.DataType, "timestamp", StringComparison.OrdinalIgnoreCase) == 0); });
+    private static Func<Field, bool> funcIsTimestamp = new Func<Field, bool>(t => { return (string.Compare(t.DataType, "timestamp", StringComparison.OrdinalIgnoreCase) == 0); });
     [CompilerGenerated]
     private static Func<Field, bool> funcBoolDefaultValue;
 
@@ -92,13 +92,13 @@ SELECT T.OBJECT_NAME || '.' || T.PROCEDURE_NAME NAME
     private static readonly string ProcDefinitionSql = @"SELECT LISTAGG(TEXT,'') WITHIN GROUP(ORDER BY line) AS definition
   FROM ALL_SOURCE
  WHERE NAME = :ObjectName";//"select definition from sys.sql_modules JOIN sys.objects ON sys.sql_modules.object_id = sys.objects.object_id where name = @ObjectName";
-    private static readonly string ViewDefinitionSql =  @"select dbms_metadata.get_ddl('VIEW',:ObjectName,'{0}') from dual";// "SELECT definition FROM sys.sql_modules JOIN sys.objects ON sys.sql_modules.object_id = sys.objects.object_id AND type = N'V' and name = @ObjectName";
+    private static readonly string ViewDefinitionSql = @"select dbms_metadata.get_ddl('VIEW',:ObjectName,'{0}') from dual";// "SELECT definition FROM sys.sql_modules JOIN sys.objects ON sys.sql_modules.object_id = sys.objects.object_id AND type = N'V' and name = @ObjectName";
     private static readonly string tableDefinitionSql = @"select dbms_metadata.get_ddl('TABLE',:TableName,'{0}') from dual";
     private static readonly string dbName = "oracle";
 
     internal static void RegisterSqlServer()
     {
-       // DbContext.RegisterDbConnectionInfo(dbName, "System.Data.SqlClient", "@", "connectionstring placeholder.");
+        // DbContext.RegisterDbConnectionInfo(dbName, "System.Data.SqlClient", "@", "connectionstring placeholder.");
     }
 
     private static DbContext GetDbContext(string conn, string initialCatalog)
@@ -129,7 +129,7 @@ SELECT T.OBJECT_NAME || '.' || T.PROCEDURE_NAME NAME
 
     public static string ExecuteScalarViewDefinition(string conn, string configName, string name)
     {
-        return ExecuteScalar(string.Format(ViewDefinitionSql,Util.GetConnUserName(conn)), conn, configName, name);
+        return ExecuteScalar(string.Format(ViewDefinitionSql, Util.GetConnUserName(conn)), conn, configName, name);
     }
 
     public static List<XmlCommand> AddParametersToCommand(string conn, string database, string commandName)
@@ -206,8 +206,8 @@ SELECT T.OBJECT_NAME || '.' || T.PROCEDURE_NAME NAME
         //{
         //    InitialCatalog = string_10
         //};
-       // using (SqlConnection connection = new SqlConnection(builder.ToString()))
-        using (OracleConnection connection=new OracleConnection(conn))
+        // using (SqlConnection connection = new SqlConnection(builder.ToString()))
+        using (OracleConnection connection = new OracleConnection(conn))
         {
             return DBParametersManager.DeriveParameters(connection, commandName);
         }
@@ -274,7 +274,7 @@ SELECT T.OBJECT_NAME || '.' || T.PROCEDURE_NAME NAME
             }
         }
         builder.Remove(builder.Length - 1, 1).AppendLine(")");
-        builder2.Remove(builder2.Length - 1, 1).AppendLine(");");
+        builder2.Remove(builder2.Length - 1, 1).AppendLine(")");
         item.CommandText = builder.ToString() + builder2.ToString();
         listXmlCommands.Add(item);
         if (list3.Count > 0)
@@ -419,5 +419,7 @@ SELECT T.OBJECT_NAME || '.' || T.PROCEDURE_NAME NAME
     {
         return GetList(procNamesSql, conn, configName);
     }
+
 }
+
 

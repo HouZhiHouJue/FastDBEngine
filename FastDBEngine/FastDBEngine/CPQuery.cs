@@ -10,7 +10,7 @@
     {
         private bool AutoDiscoverParameters;
         private Func<string, string> funcParameterQueryDelegate = new Func<string, string>(CPQuery.AddPrefix);
-        private Func<string, string> func_1 = new Func<string, string>(CPQuery.AddPrefix);
+        private Func<string, string> funcAddPrefix = new Func<string, string>(CPQuery.AddPrefix);
         private int int_0;
         private List<KeyValuePair<string, QueryParameter>> ParametersDict = new List<KeyValuePair<string, QueryParameter>>(10);
         private SPStep spstep = SPStep.NotSet;
@@ -42,7 +42,7 @@
             this.stringBuilder.Append(string.Format(format, args));
             for (num = 0; num < parameters.Length; num++)
             {
-                string str = this.func_1("p" + num.ToString());
+                string str = this.funcAddPrefix("p" + num.ToString());
                 this.AddSqlTextWithParameter(str, new QueryParameter(parameters[num]));
             }
             return this;
@@ -60,7 +60,7 @@
                 foreach (PropertyInfo info in argsObject.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
                 {
                     QueryParameter parameter = new QueryParameter(info.GetPropertyValue(argsObject));
-                    this.AddSqlTextWithParameter(this.func_1(info.Name), parameter);
+                    this.AddSqlTextWithParameter(this.funcAddPrefix(info.Name), parameter);
                 }
             }
             return this;
@@ -147,7 +147,7 @@
                 throw new InvalidOperationException("正在等待以单引号开始的字符串，此时不允许再拼接其它参数。");
             }
             string str = "p" + this.int_0++.ToString();
-            if (this.funcParameterQueryDelegate == this.func_1)
+            if (this.funcParameterQueryDelegate == this.funcAddPrefix)
             {
                 string str2 = this.funcParameterQueryDelegate(str);
                 this.stringBuilder.Append(str2);
@@ -156,7 +156,7 @@
             else
             {
                 this.stringBuilder.Append(this.funcParameterQueryDelegate(str));
-                this.ParametersDict.Add(new KeyValuePair<string, QueryParameter>(this.func_1(str), p));
+                this.ParametersDict.Add(new KeyValuePair<string, QueryParameter>(this.funcAddPrefix(str), p));
             }
             if (this.AutoDiscoverParameters && (this.spstep == SPStep.EndWith))
             {
@@ -169,7 +169,7 @@
             if (string.IsNullOrEmpty(s))
             {
                 int num = this.int_0++;
-                s = this.func_1("p" + num.ToString());
+                s = this.funcAddPrefix("p" + num.ToString());
             }
             this.ParametersDict.Add(new KeyValuePair<string, QueryParameter>(s, p));
         }
@@ -224,7 +224,7 @@
             }
             if (paraNameDelegate != null)
             {
-                this.func_1 = paraNameDelegate;
+                this.funcAddPrefix = paraNameDelegate;
             }
             return this;
         }

@@ -24,36 +24,51 @@ public static class GeneratorClassHelper
         return originWord;
     }
 
-    public static string GenerateModel(string originWord, List<Field> list, CsClassStyle csClassStyle)
+    public static string GenerateModel(string tablename, List<Field> list, CsClassStyle csClassStyle, string username)
     {
-        if ((string.IsNullOrEmpty(originWord) || (list == null)) || (list.Count == 0))
+        if ((string.IsNullOrEmpty(tablename) || (list == null)) || (list.Count == 0))
         {
             return string.Empty;
         }
+        string className = Util.GetClassName(tablename);
         if (csClassStyle.MemberStyle == CsClassMemberStyle.Field)
         {
-            return GenerateFieldModel(list, originWord, csClassStyle.SupportWCF);
+            return GenerateFieldModel(list, className, username, csClassStyle.SupportWCF, csClassStyle.SupportEF);
         }
         if (csClassStyle.MemberStyle == CsClassMemberStyle.AutoProperty)
         {
-            return GenerateAutoPropertyModel(list, originWord, csClassStyle.SupportWCF);
+            return GenerateAutoPropertyModel(list, className, username, csClassStyle.SupportWCF, csClassStyle.SupportEF);
         }
-        return GeneratePropertyModel(list, originWord, csClassStyle.SupportWCF);
+        return GeneratePropertyModel(list, className, username, csClassStyle.SupportWCF, csClassStyle.SupportEF);
     }
 
-    private static string GenerateFieldModel(List<Field> list, string originword, bool IsContract)
+    private static string GenerateFieldModel(List<Field> list, string tableName, string username, bool IsContract, bool IsEF)
     {
         StringBuilder builder = new StringBuilder();
         if (IsContract)
         {
             builder.AppendLine("[DataContract]");
         }
-        builder.Append("public class ").AppendLine(originword.SimpfyWord()).AppendLine("{");
+        if (IsEF)
+        {
+            builder.Append("using System.ComponentModel.DataAnnotations;" + Environment.NewLine);
+            builder.Append("using System.ComponentModel.DataAnnotations.Schema;" + Environment.NewLine);
+            builder.Append(Environment.NewLine);
+            builder.Append(string.Format("[Table(\"{0}.{1}\")]" + Environment.NewLine, username.ToUpper(), tableName.SimpfyWord().ToUpper()));
+        }
+        builder.Append("public class ").AppendLine(tableName.SimpfyWord()).AppendLine("{");
         foreach (Field field in list)
         {
             if (IsContract)
             {
                 builder.AppendLine("\t[DataMember]");
+            }
+            if (IsEF)
+            {
+                if (field.Name.ToUpper() == "PKID")
+                    builder.Append(" [Key]" + Environment.NewLine);
+                else
+                    builder.Append(string.Format(" [Column(\"{0}\")]" + Environment.NewLine, field.Name.ToUpper()));
             }
             builder.AppendFormat("\tpublic {0} {1};\r\n", field.GetCsDataType(), field.Name.FilterStr());
         }
@@ -61,20 +76,34 @@ public static class GeneratorClassHelper
         return builder.ToString();
     }
 
-    private static string GenerateAutoPropertyModel(List<Field> list, string originWord, bool IsContract)
+    private static string GenerateAutoPropertyModel(List<Field> list, string tablename, string username, bool IsContract, bool IsEF)
     {
-        originWord = originWord.Substring(0, 1) + originWord.Substring(1, originWord.Length - 1).ToLower();
         StringBuilder builder = new StringBuilder();
         if (IsContract)
         {
             builder.AppendLine("[DataContract]");
         }
-        builder.Append("public class ").AppendLine(originWord.SimpfyWord()).AppendLine("{");
+        if (IsEF)
+        {
+            builder.Append("using System.ComponentModel.DataAnnotations;" + Environment.NewLine);
+            builder.Append("using System.ComponentModel.DataAnnotations.Schema;" + Environment.NewLine);
+            builder.Append(Environment.NewLine);
+            builder.Append(string.Format("[Table(\"{0}.{1}\")]" + Environment.NewLine, username.ToUpper(), tablename.SimpfyWord().ToUpper()));
+        }
+
+        builder.Append("public class ").AppendLine(tablename.SimpfyWord()).AppendLine("{");
         foreach (Field field in list)
         {
             if (IsContract)
             {
                 builder.AppendLine("\t[DataMember]");
+            }
+            if (IsEF)
+            {
+                if (field.Name.ToUpper() == "PKID")
+                    builder.Append(" [Key]" + Environment.NewLine);
+                else
+                    builder.Append(string.Format(" [Column(\"{0}\")]" + Environment.NewLine, field.Name.ToUpper()));
             }
             builder.AppendFormat("\tpublic {0} {1} {{ get; set; }}\r\n", field.GetCsDataType(), field.Name.FilterStr());
         }
@@ -82,20 +111,35 @@ public static class GeneratorClassHelper
         return builder.ToString();
     }
 
-    private static string GeneratePropertyModel(List<Field> list, string originWord, bool IsContract)
+    private static string GeneratePropertyModel(List<Field> list, string tableName, string username, bool IsContract, bool IsEF)
     {
         StringBuilder builder = new StringBuilder();
         if (IsContract)
         {
             builder.AppendLine("[DataContract]");
         }
-        builder.Append("public class ").AppendLine(originWord.SimpfyWord()).AppendLine("{");
+        if (IsEF)
+        {
+            builder.Append("using System.ComponentModel.DataAnnotations;" + Environment.NewLine);
+            builder.Append("using System.ComponentModel.DataAnnotations.Schema;" + Environment.NewLine);
+            builder.Append(Environment.NewLine);
+            builder.Append(string.Format("[Table(\"{0}.{1}\")]" + Environment.NewLine, username.ToUpper(), tableName.SimpfyWord().ToUpper()));
+        }
+
+        builder.Append("public class ").AppendLine(tableName.SimpfyWord()).AppendLine("{");
         foreach (Field field in list)
         {
             builder.AppendFormat("\tprivate {0} _{1};\r\n", field.GetCsDataType(), field.Name.FilterStr());
             if (IsContract)
             {
                 builder.AppendLine("\t[DataMember]");
+            }
+            if (IsEF)
+            {
+                if (field.Name.ToUpper() == "PKID")
+                    builder.Append(" [Key]" + Environment.NewLine);
+                else
+                    builder.Append(string.Format(" [Column(\"{0}\")]" + Environment.NewLine, field.Name.ToUpper()));
             }
             builder.AppendFormat("\tpublic {0} {1} {{\r\n", field.GetCsDataType(), field.Name.FilterStr());
             builder.AppendFormat("\t\tget {{ return _{0}; }}\r\n", field.Name.FilterStr());
