@@ -36,8 +36,8 @@ namespace FastDBEngineOracleDemo
             BuildManager.StartAutoCompile(() => BuildManager.RequestCount > 0 || BuildManager.WaitTypesCount > 0);
             string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"XmlCommand");
             XmlCommandManager.LoadCommnads(path);
-            Profiler.ApplicationName = "FastDBEngineDemo";
-            Profiler.TryStartFastDBEngineProfiler();
+            //Profiler.ApplicationName = "FastDBEngineDemo";
+            //Profiler.TryStartFastDBEngineProfiler();
         }
 
         static void BuildManager_OnBuildException(Exception ex)
@@ -86,16 +86,16 @@ namespace FastDBEngineOracleDemo
             st.Start();
             using (DbContext dbContext = new DbContext("oracle"))
             {
-                List<TbasicPrice> list = FastDBEngine.DbHelper.FillList<TbasicPrice>(
-                  "select * from TBASIC_PRICE t", null, dbContext, FastDBEngine.CommandKind.SqlTextNoParams);
-                List<TbasicPrice> list2 = DbHelper.FillList<TbasicPrice>(
-                    "select * from TBASIC_PRICE where PKID = :Id",
-                     new { Id = 10000068 },
+                List<Warehouse> list = FastDBEngine.DbHelper.FillList<Warehouse>(
+                  "select * from dic_warehouses t", null, dbContext, FastDBEngine.CommandKind.SqlTextNoParams);
+                List<Warehouse> list2 = DbHelper.FillList<Warehouse>(
+                    "select * from dic_warehouses where PKID = :Id",
+                     new { Id = 20440 },
                      dbContext,
                      CommandKind.SqlTextWithParams);
-                var query = "select * from TBASIC_PRICE where PKID =".AsCPQuery(true);
-                query += 10000068;
-                List<TbasicPrice> list7 = DbHelper.FillList<TbasicPrice>(query);
+                var query = "select * from dic_warehouses where PKID =".AsCPQuery(true);
+                query += 20440;
+                List<Warehouse> list7 = DbHelper.FillList<Warehouse>(query);
             }
             var parameters = new PKGPRODUCTGETTCATEGORYBYPKIDParameters
             {

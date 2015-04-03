@@ -1,4 +1,0 @@
-E:\OpenSource\ClownFishSourceCode\bin\Debug\ClownFish.dll
-E:\OpenSource\ClownFishSourceCode\bin\Debug\ClownFish.pdb
-E:\OpenSource\ClownFishSourceCode\obj\x86\Debug\ClownFish.dll
-E:\OpenSource\ClownFishSourceCode\obj\x86\Debug\ClownFish.pdb

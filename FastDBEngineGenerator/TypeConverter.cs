@@ -42,7 +42,7 @@ public static class TypeConverter
                             return "string";
 
                         case 3:
-                            return "decimal";
+                            return "int";
 
                         case 4:
                             return "bool";

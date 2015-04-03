@@ -30,16 +30,15 @@ public static class GeneratorClassHelper
         {
             return string.Empty;
         }
-        string className = Util.GetClassName(tablename);
         if (csClassStyle.MemberStyle == CsClassMemberStyle.Field)
         {
-            return GenerateFieldModel(list, className, username, csClassStyle.SupportWCF, csClassStyle.SupportEF);
+            return GenerateFieldModel(list, tablename, username, csClassStyle.SupportWCF, csClassStyle.SupportEF);
         }
         if (csClassStyle.MemberStyle == CsClassMemberStyle.AutoProperty)
         {
-            return GenerateAutoPropertyModel(list, className, username, csClassStyle.SupportWCF, csClassStyle.SupportEF);
+            return GenerateAutoPropertyModel(list, tablename, username, csClassStyle.SupportWCF, csClassStyle.SupportEF);
         }
-        return GeneratePropertyModel(list, className, username, csClassStyle.SupportWCF, csClassStyle.SupportEF);
+        return GeneratePropertyModel(list, tablename, username, csClassStyle.SupportWCF, csClassStyle.SupportEF);
     }
 
     private static string GenerateFieldModel(List<Field> list, string tableName, string username, bool IsContract, bool IsEF)
@@ -54,8 +53,9 @@ public static class GeneratorClassHelper
             builder.Append("using System.ComponentModel.DataAnnotations;" + Environment.NewLine);
             builder.Append("using System.ComponentModel.DataAnnotations.Schema;" + Environment.NewLine);
             builder.Append(Environment.NewLine);
-            builder.Append(string.Format("[Table(\"{0}.{1}\")]" + Environment.NewLine, username.ToUpper(), tableName.SimpfyWord().ToUpper()));
+            builder.Append(string.Format("[Table(\"{0}.{1}\")]" + Environment.NewLine, username.ToUpper(), tableName.ToUpper()));
         }
+        tableName = Util.GetClassName(tableName);
         builder.Append("public class ").AppendLine(tableName.SimpfyWord()).AppendLine("{");
         foreach (Field field in list)
         {
@@ -67,8 +67,7 @@ public static class GeneratorClassHelper
             {
                 if (field.Name.ToUpper() == "PKID")
                     builder.Append(" [Key]" + Environment.NewLine);
-                else
-                    builder.Append(string.Format(" [Column(\"{0}\")]" + Environment.NewLine, field.Name.ToUpper()));
+                builder.Append(string.Format(" [Column(\"{0}\")]" + Environment.NewLine, field.Name.ToUpper()));
             }
             builder.AppendFormat("\tpublic {0} {1};\r\n", field.GetCsDataType(), field.Name.FilterStr());
         }
@@ -88,9 +87,9 @@ public static class GeneratorClassHelper
             builder.Append("using System.ComponentModel.DataAnnotations;" + Environment.NewLine);
             builder.Append("using System.ComponentModel.DataAnnotations.Schema;" + Environment.NewLine);
             builder.Append(Environment.NewLine);
-            builder.Append(string.Format("[Table(\"{0}.{1}\")]" + Environment.NewLine, username.ToUpper(), tablename.SimpfyWord().ToUpper()));
+            builder.Append(string.Format("[Table(\"{0}.{1}\")]" + Environment.NewLine, username.ToUpper(), tablename.ToUpper()));
         }
-
+        tablename = Util.GetClassName(tablename);
         builder.Append("public class ").AppendLine(tablename.SimpfyWord()).AppendLine("{");
         foreach (Field field in list)
         {
@@ -102,8 +101,7 @@ public static class GeneratorClassHelper
             {
                 if (field.Name.ToUpper() == "PKID")
                     builder.Append(" [Key]" + Environment.NewLine);
-                else
-                    builder.Append(string.Format(" [Column(\"{0}\")]" + Environment.NewLine, field.Name.ToUpper()));
+                builder.Append(string.Format(" [Column(\"{0}\")]" + Environment.NewLine, field.Name.ToUpper()));
             }
             builder.AppendFormat("\tpublic {0} {1} {{ get; set; }}\r\n", field.GetCsDataType(), field.Name.FilterStr());
         }
@@ -123,9 +121,9 @@ public static class GeneratorClassHelper
             builder.Append("using System.ComponentModel.DataAnnotations;" + Environment.NewLine);
             builder.Append("using System.ComponentModel.DataAnnotations.Schema;" + Environment.NewLine);
             builder.Append(Environment.NewLine);
-            builder.Append(string.Format("[Table(\"{0}.{1}\")]" + Environment.NewLine, username.ToUpper(), tableName.SimpfyWord().ToUpper()));
+            builder.Append(string.Format("[Table(\"{0}.{1}\")]" + Environment.NewLine, username.ToUpper(), tableName.ToUpper()));
         }
-
+        tableName = Util.GetClassName(tableName);
         builder.Append("public class ").AppendLine(tableName.SimpfyWord()).AppendLine("{");
         foreach (Field field in list)
         {
@@ -138,8 +136,7 @@ public static class GeneratorClassHelper
             {
                 if (field.Name.ToUpper() == "PKID")
                     builder.Append(" [Key]" + Environment.NewLine);
-                else
-                    builder.Append(string.Format(" [Column(\"{0}\")]" + Environment.NewLine, field.Name.ToUpper()));
+                builder.Append(string.Format(" [Column(\"{0}\")]" + Environment.NewLine, field.Name.ToUpper()));
             }
             builder.AppendFormat("\tpublic {0} {1} {{\r\n", field.GetCsDataType(), field.Name.FilterStr());
             builder.AppendFormat("\t\tget {{ return _{0}; }}\r\n", field.Name.FilterStr());

@@ -1,5 +1,0 @@
-E:\GitMaster\FastDBEngine\FastDBEngine\bin\Debug\FastDBEngine.dll
-E:\GitMaster\FastDBEngine\FastDBEngine\bin\Debug\FastDBEngine.pdb
-E:\GitMaster\FastDBEngine\FastDBEngine\obj\x86\Debug\FastDBEngine.dll
-E:\GitMaster\FastDBEngine\FastDBEngine\obj\x86\Debug\FastDBEngine.pdb
-E:\GitMaster\FastDBEngine\FastDBEngine\obj\x86\Debug\FastDBEngine.csprojResolveAssemblyReference.cache

@@ -17,7 +17,7 @@ namespace FastDBEngineGenerator
 {
     public partial class MainFormFix : Form
     {
-        private static readonly string connText = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "ECode.txt");
+        private static readonly string connTextPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "ECode.txt");
         public MainFormFix()
         {
             InitializeComponent();
@@ -53,11 +53,11 @@ namespace FastDBEngineGenerator
             {
                 if (builder.Length > 0)
                 {
-                    File.WriteAllText(connText, builder.ToString(), Encoding.Unicode);
+                    File.WriteAllText(connTextPath, builder.ToString(), Encoding.Unicode);
                 }
-                else if (File.Exists(connText))
+                else if (File.Exists(connTextPath))
                 {
-                    File.Delete(connText);
+                    File.Delete(connTextPath);
                 }
             }
             catch
@@ -91,23 +91,28 @@ namespace FastDBEngineGenerator
         {
             try
             {
-                foreach (string str in File.ReadAllText(connText, Encoding.Unicode).Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                if (File.Exists(connTextPath))
                 {
-                    this.cboConnectionString.Items.Add(str);
+                    string text = File.ReadAllText(connTextPath, Encoding.Unicode);
+                    if (!string.IsNullOrEmpty(text))
+                        foreach (string str in text.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            this.cboConnectionString.Items.Add(str);
+                        }
                 }
                 this.cboConnectionString.Items.Add(System.Configuration.ConfigurationManager.AppSettings["oracle"]);
             }
             catch
             {
             }
-            if (this.cboConnectionString.Items.Count == 0)
+            if (this.cboConnectionString.Items.Count > 0)
             {
                 this.cboConnectionString.SelectedIndex = 0;
             }
-            else
-            {
-                this.cboConnectionString.SelectedIndex = 0;
-            }
+            //else
+            //{
+
+            //}
         }
 
         private void menuCopyViewName_Click(object sender, EventArgs e)
@@ -167,9 +172,9 @@ namespace FastDBEngineGenerator
                     TreeNode node3 = new TreeNode(views, int_3, int_3);
                     node3.Nodes.Add(new TreeNode("loading...", int_2, int_2));
                     node.Nodes.Add(node3);
-                    //TreeNode node4 = new TreeNode(Procedures, int_3, int_3);
-                    //node4.Nodes.Add(new TreeNode("loading...", int_2, int_2));
-                    //node.Nodes.Add(node4);
+                    TreeNode node4 = new TreeNode(Procedures, int_3, int_3);
+                    node4.Nodes.Add(new TreeNode("loading...", int_2, int_2));
+                    node.Nodes.Add(node4);
                     this.treeView1.Nodes.Add(node);
                 }
                 this.conn = str;

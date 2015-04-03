@@ -40,8 +40,12 @@ namespace FastDBEngineGenerator
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.txtCsCode = new FastDBEngineGenerator.SyntaxHighlighterControlFix();
+            this.txtSqlScript = new FastDBEngineGenerator.SyntaxHighlighterControlFix();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.ucParameterStyle1 = new FastDBEngineGenerator.ucParameterStyleFix();
+            this.ucCsClassStyle1 = new FastDBEngineGenerator.UcCsClassStyleFix();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel3 = new System.Windows.Forms.Panel();
             this.treeView1 = new System.Windows.Forms.TreeView();
@@ -68,10 +72,6 @@ namespace FastDBEngineGenerator
             this.定位到指定对象ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip4 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuCopyViewName = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtCsCode = new FastDBEngineGenerator.SyntaxHighlighterControlFix();
-            this.txtSqlScript = new FastDBEngineGenerator.SyntaxHighlighterControlFix();
-            this.ucParameterStyle1 = new FastDBEngineGenerator.ucParameterStyleFix();
-            this.ucCsClassStyle1 = new FastDBEngineGenerator.UcCsClassStyleFix();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -101,7 +101,7 @@ namespace FastDBEngineGenerator
             // 
             // cboConnectionString
             // 
-            this.cboConnectionString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.cboConnectionString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cboConnectionString.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboConnectionString.FormattingEnabled = true;
@@ -162,6 +162,24 @@ namespace FastDBEngineGenerator
             this.splitContainer1.SplitterDistance = 228;
             this.splitContainer1.TabIndex = 5;
             // 
+            // txtCsCode
+            // 
+            this.txtCsCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtCsCode.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCsCode.Location = new System.Drawing.Point(0, 0);
+            this.txtCsCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtCsCode.Name = "txtCsCode";
+            this.txtCsCode.Size = new System.Drawing.Size(686, 228);
+            this.txtCsCode.TabIndex = 10;
+            // 
+            // txtSqlScript
+            // 
+            this.txtSqlScript.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSqlScript.Location = new System.Drawing.Point(0, 0);
+            this.txtSqlScript.Name = "txtSqlScript";
+            this.txtSqlScript.Size = new System.Drawing.Size(686, 280);
+            this.txtSqlScript.TabIndex = 6;
+            // 
             // splitter2
             // 
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -180,6 +198,22 @@ namespace FastDBEngineGenerator
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(686, 26);
             this.panel5.TabIndex = 2;
+            // 
+            // ucParameterStyle1
+            // 
+            this.ucParameterStyle1.Location = new System.Drawing.Point(123, 1);
+            this.ucParameterStyle1.Name = "ucParameterStyle1";
+            this.ucParameterStyle1.Size = new System.Drawing.Size(253, 25);
+            this.ucParameterStyle1.TabIndex = 9;
+            this.ucParameterStyle1.Visible = false;
+            // 
+            // ucCsClassStyle1
+            // 
+            this.ucCsClassStyle1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ucCsClassStyle1.Location = new System.Drawing.Point(0, 0);
+            this.ucCsClassStyle1.Name = "ucCsClassStyle1";
+            this.ucCsClassStyle1.Size = new System.Drawing.Size(686, 26);
+            this.ucCsClassStyle1.TabIndex = 8;
             // 
             // splitter1
             // 
@@ -283,7 +317,6 @@ namespace FastDBEngineGenerator
             this.menuGetXmlCommandBySP.Name = "menuGetXmlCommandBySP";
             this.menuGetXmlCommandBySP.Size = new System.Drawing.Size(230, 22);
             this.menuGetXmlCommandBySP.Text = "生成XmlCommand到剪切板";
-            this.menuGetXmlCommandBySP.Visible = false;
             this.menuGetXmlCommandBySP.Click += new System.EventHandler(this.menuGetXmlCommandBySP_Click);
             // 
             // 生成增删改到剪贴板ToolStripMenuItem
@@ -301,7 +334,7 @@ namespace FastDBEngineGenerator
             this.生成增删改命令到剪切板ToolStripMenuItem,
             this.生成增删改到剪贴板ToolStripMenuItem1});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(267, 76);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(267, 98);
             // 
             // menuCopyTableName
             // 
@@ -320,7 +353,6 @@ namespace FastDBEngineGenerator
             this.生成增删改命令到剪切板ToolStripMenuItem.Name = "生成增删改命令到剪切板ToolStripMenuItem";
             this.生成增删改命令到剪切板ToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.生成增删改命令到剪切板ToolStripMenuItem.Text = "生成增删改XmlCommand到剪切板";
-            this.生成增删改命令到剪切板ToolStripMenuItem.Visible = false;
             this.生成增删改命令到剪切板ToolStripMenuItem.Click += new System.EventHandler(this.生成增删改命令到剪切板ToolStripMenuItem_Click);
             // 
             // 生成增删改到剪贴板ToolStripMenuItem1
@@ -385,40 +417,6 @@ namespace FastDBEngineGenerator
             this.menuCopyViewName.Size = new System.Drawing.Size(124, 22);
             this.menuCopyViewName.Text = "复制名称";
             this.menuCopyViewName.Click += new System.EventHandler(this.menuCopyViewName_Click);
-            // 
-            // txtCsCode
-            // 
-            this.txtCsCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCsCode.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCsCode.Location = new System.Drawing.Point(0, 0);
-            this.txtCsCode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtCsCode.Name = "txtCsCode";
-            this.txtCsCode.Size = new System.Drawing.Size(686, 228);
-            this.txtCsCode.TabIndex = 10;
-            // 
-            // txtSqlScript
-            // 
-            this.txtSqlScript.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSqlScript.Location = new System.Drawing.Point(0, 0);
-            this.txtSqlScript.Name = "txtSqlScript";
-            this.txtSqlScript.Size = new System.Drawing.Size(686, 280);
-            this.txtSqlScript.TabIndex = 6;
-            // 
-            // ucParameterStyle1
-            // 
-            this.ucParameterStyle1.Location = new System.Drawing.Point(123, 1);
-            this.ucParameterStyle1.Name = "ucParameterStyle1";
-            this.ucParameterStyle1.Size = new System.Drawing.Size(253, 25);
-            this.ucParameterStyle1.TabIndex = 9;
-            this.ucParameterStyle1.Visible = false;
-            // 
-            // ucCsClassStyle1
-            // 
-            this.ucCsClassStyle1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ucCsClassStyle1.Location = new System.Drawing.Point(0, 0);
-            this.ucCsClassStyle1.Name = "ucCsClassStyle1";
-            this.ucCsClassStyle1.Size = new System.Drawing.Size(686, 26);
-            this.ucCsClassStyle1.TabIndex = 8;
             // 
             // MainFormFix
             // 
