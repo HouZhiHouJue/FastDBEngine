@@ -39,7 +39,8 @@ namespace Performance
             Stopwatch watch = new Stopwatch();
             watch.Start();
             ulong cycleCount = GetCycleCount();
-            for (int i = 0; i < iteration; i++) action();
+            for (int i = 0; i < iteration; i++)
+                action();
             ulong cpuCycles = GetCycleCount() - cycleCount;
             watch.Stop();
 

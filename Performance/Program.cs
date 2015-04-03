@@ -62,7 +62,5 @@ namespace Performance
             Console.WriteLine(ex);
         }
 
-
-
     }
 }
