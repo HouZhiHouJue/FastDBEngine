@@ -457,7 +457,7 @@ namespace FastDBEngineSQLProfiler
                 }
             }
         }
-        [CompilerGenerated]
+        
         private sealed class Class0
         {
             public SQLProfilerFormFix sqlprofilerForm_0;

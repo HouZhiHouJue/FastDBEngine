@@ -26,14 +26,14 @@ public class MainForm : Form
     private ToolStripButton btnHelp;
     private ToolStripButton btnOpenDirectory;
     private ToolStripButton btnSaveAll;
-    [CompilerGenerated]
+    
     private static Comparison<XmlCommand> comparison_0;
     private ContextMenuStrip contextMenuStrip1;
     private FileChangedDialogFix fileChangedDialog_0;
     private FileSystemWatcher fileSystemWatcher_0;
-    [CompilerGenerated]
+    
     private static Func<FileSystemEventArgs, bool> func_0;
-    [CompilerGenerated]
+    
     private static Func<FileSystemEventArgs, string> func_1;
     private IContainer icontainer_0 = null;
     private ImageList imageList_0;
@@ -880,19 +880,19 @@ public class MainForm : Form
         this.fileChangedDialog_0.Hide();
     }
 
-    [CompilerGenerated]
+    
     private static int smethod_0(XmlCommand xmlCommand_0, XmlCommand xmlCommand_1)
     {
         return string.Compare(xmlCommand_0.CommandName, xmlCommand_1.CommandName, StringComparison.OrdinalIgnoreCase);
     }
 
-    [CompilerGenerated]
+    
     private static bool smethod_1(FileSystemEventArgs fileSystemEventArgs_0)
     {
         return (fileSystemEventArgs_0.ChangeType != WatcherChangeTypes.Deleted);
     }
 
-    [CompilerGenerated]
+    
     private static string smethod_2(FileSystemEventArgs fileSystemEventArgs_0)
     {
         return fileSystemEventArgs_0.FullPath;

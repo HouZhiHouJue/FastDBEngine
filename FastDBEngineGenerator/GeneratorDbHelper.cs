@@ -13,13 +13,13 @@ using System.Text.RegularExpressions;
 
 public static class GeneratorDbHelper
 {
-    [CompilerGenerated]
+    
     private static Func<Field, bool> funcBoolIdentity;
-    [CompilerGenerated]
+    
     private static Func<Field, string> funcGetFieldName = new Func<Field, string>(t => { return t.Name; });
-    [CompilerGenerated]
+    
     private static Func<Field, bool> funcIsTimestamp = new Func<Field, bool>(t => { return (string.Compare(t.DataType, "timestamp", StringComparison.OrdinalIgnoreCase) == 0); });
-    [CompilerGenerated]
+    
     private static Func<Field, bool> funcBoolDefaultValue;
 
     private static readonly string OracletableNameSql = "select table_name from user_tables";//"\r\nselect name from ( SELECT obj.name AS [Name],  \r\n\tCAST( case when obj.is_ms_shipped = 1 then 1     \r\n\t\t\twhen ( select major_id from sys.extended_properties          \r\n\t\t\t\t\twhere major_id = obj.object_id and  minor_id = 0 and class = 1 and name = N'microsoft_database_tools_support')          \r\n\t\t\tis not null then 1  else 0 end  AS bit) AS [IsSystemObject] \r\n\tFROM sys.all_objects AS obj where obj.type in (N'U') ) as tables \r\n\twhere [IsSystemObject] = 0 ORDER BY [Name] ASC";

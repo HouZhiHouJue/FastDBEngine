@@ -509,7 +509,7 @@ namespace FastDBEngineGenerator
 
         }
 
-        [CompilerGenerated]
+        
         private sealed class TempParameterContainer
         {
             public MainFormFix mainForm;
@@ -525,7 +525,7 @@ namespace FastDBEngineGenerator
             }
         }
 
-        [CompilerGenerated]
+        
         private sealed class TempParametersToClipBoardContainer
         {
             public MainFormFix mainForm;
@@ -539,7 +539,7 @@ namespace FastDBEngineGenerator
             }
         }
 
-        [CompilerGenerated]
+        
         private sealed class TempXmlCommandsToClipBoardContainer
         {
             public MainFormFix mainForm;
