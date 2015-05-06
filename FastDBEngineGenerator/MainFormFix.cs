@@ -34,7 +34,7 @@ namespace FastDBEngineGenerator
             {
                 if (!register)
                 {
-                    DbContext.RegisterDbConnectionInfo("oracle", "Oracle.DataAccess.Client", ":", this.cboConnectionString.Text.Trim());
+                    DbContext.RegisterDbConnectionInfo("oracle", "oracle.manageddataaccess.client", ":", this.cboConnectionString.Text.Trim());
                     register = true;
                 }
                 this.GenerateParameters(new Action(this.LoadTreeNode));

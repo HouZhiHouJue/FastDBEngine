@@ -33,7 +33,7 @@ namespace Performance
             using (DbContext dbContext = new DbContext("oracle"))
             {
                 List<Warehouse> list = FastDBEngine.DbHelper.FillList<Warehouse>(
-                  "select * from dic_warehouses t", null, dbContext, FastDBEngine.CommandKind.SqlTextNoParams);
+              "select * from dic_warehouses t", null, dbContext, FastDBEngine.CommandKind.SqlTextNoParams);
             }
         }
 

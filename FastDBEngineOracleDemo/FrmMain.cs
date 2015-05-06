@@ -36,8 +36,8 @@ namespace FastDBEngineOracleDemo
             BuildManager.StartAutoCompile(() => BuildManager.RequestCount > 0 || BuildManager.WaitTypesCount > 0);
             string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"XmlCommand");
             XmlCommandManager.LoadCommnads(path);
-            //Profiler.ApplicationName = "FastDBEngineDemo";
-            //Profiler.TryStartFastDBEngineProfiler();
+            Profiler.ApplicationName = "FastDBEngineDemo";
+            Profiler.TryStartFastDBEngineProfiler();
         }
 
         static void BuildManager_OnBuildException(Exception ex)
@@ -97,11 +97,11 @@ namespace FastDBEngineOracleDemo
                 query += 20440;
                 List<Warehouse> list7 = DbHelper.FillList<Warehouse>(query);
             }
-            var parameters = new PKGPRODUCTGETTCATEGORYBYPKIDParameters
-            {
-                V_PKID = 64// output
-            };
-            List<TCATEGORY> list5 = DbHelper.FillList<TCATEGORY>("PKG_PRODUCT.GETTCATEGORYBYPKID", parameters);
+            //var parameters = new PKGPRODUCTGETTCATEGORYBYPKIDParameters
+            //{
+            //    V_PKID = 64// output
+            //};
+            //List<TCATEGORY> list5 = DbHelper.FillList<TCATEGORY>("PKG_PRODUCT.GETTCATEGORYBYPKID", parameters);
 
             //List<Model.WEBSITE> list3 = DbHelper.FillList<Model.WEBSITE>("SelectWebsite", new { Id = 387 });
             //var parameters = new WebsiteParameters { P_WEBSITETYPe = "境外", P_RESULT = 0 };
